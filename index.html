@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Burn Rate Index</title>
+<meta name="description" content="How many foreign components Russia fires each month in Shahed-type drones, against what it loses and how it resupplies. Open data and method.">
+<meta name="author" content="Thomas Di Domenico">
+<meta property="og:title" content="Burn Rate Index">
+<meta property="og:description" content="Foreign components Russia fires each month in Shahed-type drones, against what it loses and how it resupplies.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font-anthropic-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-anthropic-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --color-bg: #f7f5f0; --color-panel: #ffffff; --color-fg: #1c1b19; --color-fg-muted: #5f5c55;
+    --color-border-line: #e3dfd6; --color-ok: #2f7a4a; --color-warn: #a86a12; --color-bad: #b23a2e;
+    --cds-gap-xs: 4px; --cds-gap-sm: 8px; --cds-gap-md: 16px; --cds-gap-lg: 24px; --cds-gap-xl: 40px;
+    --cds-pad-xs: 4px; --cds-pad-sm: 8px; --cds-pad-md: 12px; --cds-pad-lg: 20px;
+    --cds-radius: 6px;
+    --cds-font-size-caption: 0.8125rem; --cds-font-size-body: 0.96875rem; --cds-font-size-heading: 1.0625rem; --cds-font-size-title: 1.875rem;
+    --cds-font-weight-medium: 600;
+    --cds-chart-grid: #ebe7de; --cds-chart-axis: #b9b3a6; --cds-chart-reference: #7f796c; --cds-chart-muted: #cdc7ba; --cds-chart-status-critical: #b23a2e;
+    --cds-surface-popover: #ffffff; --cds-border: #ddd8cd; --cds-shadow-popover: 0 6px 20px rgba(0,0,0,.10); --cds-text-secondary: #6d6a62;
+    --cds-dur-slow: 300ms;
+    --c0: #2c5f8d; --c1: #d08a24; --c2: #9a3d34; --c3: #4f8a55; --c4: #7458a3; --c5: #2a8b8b; --c6: #b0577d; --c7: #7c7a68;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: #161614; --color-panel: #1f1f1c; --color-fg: #ecebe6; --color-fg-muted: #a9a69d;
+      --color-border-line: #34332e; --color-ok: #6cc28a; --color-warn: #e0a24a; --color-bad: #ef7a6c;
+      --cds-chart-grid: #2c2b27; --cds-chart-axis: #55534c; --cds-chart-reference: #a39d8f; --cds-chart-muted: #4b4943; --cds-chart-status-critical: #ef7a6c;
+      --cds-surface-popover: #262622; --cds-border: #3b3a34; --cds-shadow-popover: 0 6px 20px rgba(0,0,0,.45); --cds-text-secondary: #a09d94;
+      --c0: #6ea6dc; --c1: #f0b04d; --c2: #e07a6d; --c3: #84c48a; --c4: #a993d8; --c5: #5cc3c3; --c6: #e08cb0; --c7: #b5b39f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--color-bg); color: var(--color-fg); font-family: var(--font-anthropic-sans); line-height: 1.4; }
+  a { color: inherit; text-decoration-color: var(--cds-chart-reference); text-underline-offset: 2px; }
+  .site-bar { border-bottom: 1px solid var(--color-border-line); background: var(--color-panel); }
+  .site-bar-in, .site-main, .site-foot-in { max-width: 76rem; margin-inline: auto; padding-inline: clamp(16px, 4vw, 40px); }
+  .site-bar-in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-block: 12px; font-size: var(--cds-font-size-caption); }
+  .site-bar-in .by { color: var(--color-fg-muted); }
+  .site-bar-in nav { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+  .site-main { padding-block: 32px 48px; }
+  .site-foot { border-top: 1px solid var(--color-border-line); }
+  .site-foot-in { padding-block: 24px 40px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); display: grid; gap: 8px; line-height: 1.5; }
+  .site-foot-in p { margin: 0; max-width: 90ch; }
+
+  .at { font-family: var(--font-anthropic-sans); color: var(--color-fg); display: grid; gap: var(--cds-gap-xl); max-width: 76rem; margin-inline: auto; }
+  .at-head { display: grid; gap: var(--cds-gap-sm); }
+  .at-head h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+  .at-take { font-size: var(--cds-font-size-body); color: var(--color-fg-muted); margin: 0; max-width: 70ch; line-height: 1.55; }
+  .at .at-take b, .at .at-note b, .at .at-tile-s b, .at .at-method b, .at .at-sec p b { color: var(--color-fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .at-hero { display: grid; gap: var(--cds-gap-sm); background: var(--color-panel); border: 1px solid var(--cds-chart-reference); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); }
+  .at-hero-l { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .at-hero-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--cds-gap-sm) var(--cds-gap-md); }
+  .at-hero-n { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: calc(var(--cds-font-size-title) * 1.6); line-height: 1; font-variant-numeric: tabular-nums; }
+  .at-hero-c { font-size: var(--cds-font-size-body); color: var(--color-fg-muted); }
+  .at .at-hero-c b { color: var(--color-fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .at-hero-def { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0; max-width: 72ch; line-height: 1.45; }
+  .at-spark { position: relative; min-height: 64px; }
+  .at-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--cds-gap-md); }
+  .at-tile, .at-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); min-width: 0; }
+  .at-tile { display: grid; gap: var(--cds-gap-xs); align-content: start; }
+  .at-tile-l { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .at-tile-n { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .at-tile-s { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); line-height: 1.4; }
+  .at-tile.hook { border-color: var(--cds-chart-reference); }
+  .at-sec { display: grid; gap: var(--cds-gap-md); }
+  .at-sec > h2 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-heading); margin: 0; }
+  .at-sec > p { font-size: var(--cds-font-size-body); color: var(--color-fg-muted); margin: 0; max-width: 70ch; line-height: 1.5; }
+  .at-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); gap: var(--cds-gap-md); }
+  .at-card { display: grid; gap: var(--cds-gap-sm); align-content: start; }
+  .at-card h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .at-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0; line-height: 1.45; }
+  .at-chart { position: relative; min-height: 220px; }
+  .at-chart svg text { font-family: var(--font-anthropic-sans); }
+  .at-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .at-legend span { display: inline-flex; align-items: center; gap: var(--cds-gap-xs); }
+  .at-sw { width: .65rem; height: .65rem; border-radius: 2px; display: inline-block; }
+  .at-sw.dot { border-radius: 50%; }
+  .at-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; }
+  .at-tip .k { color: var(--cds-text-secondary); }
+  .at-tablewrap { overflow-x: auto; }
+  .at table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+  .at th, .at td { text-align: left; padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+  .at th { color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); }
+  .at td.n, .at th.n { text-align: right; }
+  .at-small { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: var(--cds-gap-md); }
+  .at-small figure { margin: 0; display: grid; gap: var(--cds-gap-xs); position: relative; }
+  .at-small figcaption { font-size: var(--cds-font-size-caption); color: var(--color-fg); display: flex; justify-content: space-between; gap: var(--cds-gap-sm); }
+  .at-small figcaption span { color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+  .at-method { display: grid; gap: var(--cds-gap-sm); max-width: 72ch; }
+  .at-method h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .at-method li { font-size: var(--cds-font-size-body); color: var(--color-fg-muted); line-height: 1.5; }
+  .at-method ul { margin: 0; padding-left: 1.2rem; display: grid; gap: var(--cds-gap-xs); }
+  [data-dash-source-state=empty] { color: transparent; }
+  [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+  @media (max-width: 40rem) { .at td.hide-n, .at th.hide-n { display: none; } }
+
+</style>
+<script src="assets/d3.min.js"></script>
+<script>
+  // Minimal stand-in for the dashboard runtime: loads the CSVs in data/raw,
+  // runs the page's calculations in order and redraws on resize.
+  window.dash = (() => {
+    const files = {
+      launches: 'data/raw/launches.csv', linked: 'data/raw/matched_losses.csv', losses: 'data/raw/losses_monthly.csv',
+      production: 'data/raw/production.csv', profiles: 'data/raw/unit_profiles.csv', tanks: 'data/raw/tanks.csv',
+      storage: 'data/raw/storage.csv', strike_share: 'data/raw/strike_share.csv', other_weapons: 'data/raw/other_weapons.csv',
+      tank_new: 'data/raw/tank_new.csv',
+    };
+    const raw = {}, calcs = {}, draws = {}, cache = {};
+    let state = 'loading';
+    const compute = (id) => {
+      if (id in raw) return raw[id];
+      if (id in cache) return cache[id];
+      const c = calcs[id];
+      if (!c) return null;
+      const args = c.inputs.map(compute);
+      if (args.some((a) => a == null)) return null;
+      return (cache[id] = c.fn(...args));
+    };
+    const api = {
+      colors: [0, 1, 2, 3, 4, 5, 6, 7].map((i) => `var(--c${i})`),
+      data(id) {
+        if (state !== 'ok') return {status: state, data: []};
+        const v = compute(id);
+        return v == null ? {status: 'missing', data: []} : {status: 'ok', data: v};
+      },
+      calc(id, spec) { calcs[id] = spec; },
+      draw(name, fn) { draws[name] = fn; },
+      run() {
+        Object.entries(draws).forEach(([name, fn]) => document.querySelectorAll(`[data-draw="${name}"]`).forEach((el) => {
+          try { fn(el); } catch (e) { console.error(`Drawing "${name}" failed`, e); }
+        }));
+      },
+      async load() {
+        try {
+          await Promise.all(Object.entries(files).map(async ([id, path]) => { raw[id] = await d3.csv(path); }));
+          state = 'ok';
+        } catch (e) { console.error('Data failed to load', e); state = 'error'; }
+        api.run();
+      },
+    };
+    return api;
+  })();
+</script>
+</head>
+<body>
+<header class="site-bar">
+  <div class="site-bar-in">
+    <div><b>Burn Rate Index</b> <span class="by">· by Thomas Di Domenico</span></div>
+    <nav aria-label="Project">
+      <a href="#method">Method</a>
+      <a href="data/derived/burn_rate_monthly.csv" download>Download the index (CSV)</a>
+      <a data-repo="" href="https://github.com/">Data and code on GitHub</a>
+    </nav>
+  </div>
+</header>
+<main class="site-main">
+
+
+<div class="at">
+  <header class="at-head" id="top">
+    <h1>Burn Rate Index</h1>
+    <p class="at-take">Russia replaces lost armour mostly by pulling Soviet-era vehicles out of storage, and that stock is running out: <b data-draw="num" data-source="storage" data-field="remaining" data-where="category=Tanks&amp;date=2026-06">—</b> of <b data-draw="num" data-source="storage" data-field="prewar" data-where="category=Tanks&amp;date=2026-06">—</b> pre-war tanks were left in June 2026, <b data-draw="num" data-source="storage" data-field="restorable" data-where="category=Tanks&amp;date=2026-06">—</b> of them judged restorable. Refurbishment reuses most of a vehicle; a drone has to be built from new components every time: from January 2025 to September 2026, Shahed-type launches carried an estimated <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=drone_mid">—</b> foreign component records, <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_mid">—</b> of them from EU-owned firms. That is about <b data-draw="x" data-source="totals" data-field="value" data-where="metric=ratio">—</b> times the records in every matched platform Russia lost over the same months, even if each one were rebuilt new.</p>
+  </header>
+
+  <section class="at-hero" id="index" aria-label="Burn Rate Index">
+    <span class="at-hero-l">Burn Rate Index, <span data-draw="lbl" data-source="bri" data-field="label" data-where="metric=latest">—</span></span>
+    <div class="at-hero-row">
+      <span class="at-hero-n" data-draw="cmp" data-source="bri" data-field="value" data-where="metric=latest">—</span>
+      <span class="at-hero-c">foreign component records fired · <b data-draw="chg" data-source="bri" data-field="value" data-where="metric=change">—</b> on <span data-draw="lbl" data-source="bri" data-field="label" data-where="metric=previous">—</span> · <b data-draw="cmp" data-source="bri" data-field="eu" data-where="metric=latest">—</b> from EU-owned firms</span>
+    </div>
+    <div class="at-spark" data-draw="spark" data-source="monthly"></div>
+    <p class="at-hero-def">The index counts the foreign component records in the Shahed-type drones Russia launched in a month: estimated strike drones times the records GUR found in a Shahed-136, plus the rest times those in a Gerbera decoy. It rises and falls with how much Russia fires, and so with how many foreign parts it has to keep sourcing. Recent months may be revised: ISIS marks some launch counts as preliminary, and months without an ISIS strike share use its latest average.</p>
+  </section>
+
+  <section class="at-tiles" aria-label="Headline figures">
+    <div class="at-tile hook">
+      <span class="at-tile-l">EU-owned component records in Shahed-type launches</span>
+      <span class="at-tile-n" data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_mid">—</span>
+      <span class="at-tile-s">Jan 2025 to Sep 2026, central estimate (range <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_low">—</b> to <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_high">—</b>). Counted by the parent group's home country, not where the part was made or how it reached Russia, usually through third countries.</span>
+    </div>
+    <div class="at-tile">
+      <span class="at-tile-l">Shahed-type drones launched, Jan 2025 to Sep 2026</span>
+      <span class="at-tile-n" data-draw="num" data-source="totals" data-field="value" data-where="metric=launches">—</span>
+      <span class="at-tile-s">Of which an estimated <b data-draw="num" data-source="totals" data-field="value" data-where="metric=strike_launched">—</b> strike drones; the rest decoys and other types</span>
+    </div>
+    <div class="at-tile">
+      <span class="at-tile-l">Soviet-era tanks left in storage, June 2026</span>
+      <span class="at-tile-n" data-draw="num" data-source="storage" data-field="remaining" data-where="category=Tanks&amp;date=2026-06">—</span>
+      <span class="at-tile-s">Of <b data-draw="num" data-source="storage" data-field="prewar" data-where="category=Tanks&amp;date=2026-06">—</b> before the invasion; <b data-draw="num" data-source="storage" data-field="restorable" data-where="category=Tanks&amp;date=2026-06">—</b> judged restorable (satellite count by Jompy)</span>
+    </div>
+    <div class="at-tile">
+      <span class="at-tile-l">Documented equipment losses, Jan 2025 to Sep 2026</span>
+      <span class="at-tile-n" data-draw="num" data-source="totals" data-field="value" data-where="metric=losses_window">—</span>
+      <span class="at-tile-s">Destroyed, captured or abandoned, each confirmed by photo or video (WarSpotting). A floor, not a total.</span>
+    </div>
+  </section>
+
+  <section class="at-sec" id="resupply">
+    <h2>Resupply: the storage stock is running out</h2>
+    <p>For armour, resupply is mostly refurbishment. Russia has covered its losses by drawing down Soviet-era storage, which cannot be refilled. New production is small next to it.</p>
+    <div class="at-grid">
+      <div class="at-card" id="storage">
+        <h3>How much of the pre-war storage stock is left</h3>
+        <p class="at-note">Vehicles counted on satellite imagery of Russian storage bases, as a share of the stock before the invasion. Vehicles kept under roofs are not visible, so remaining stocks may be somewhat higher.</p>
+        <div class="at-legend"><span><i class="at-sw" data-draw="sw" data-i="0"></i>Left in storage</span><span><i class="at-sw" data-draw="sw" data-i="1"></i>Judged restorable</span></div>
+        <div class="at-chart" data-draw="storage" data-source="storage"></div>
+      </div>
+      <div class="at-card" id="pulled">
+        <h3>Pulled from storage vs confirmed lost, Feb 2022 to Oct 2025</h3>
+        <p class="at-note">Pulled from storage is an upper bound on refurbishment, since some vehicles are stripped for parts. Confirmed losses are a floor. Stored artillery includes mortars and anti-aircraft guns, which WarSpotting's artillery category leaves out, so that pair is the weakest comparison.</p>
+        <div class="at-legend"><span><i class="at-sw" data-draw="sw" data-i="0"></i>Pulled from storage</span><span><i class="at-sw" data-draw="sw" data-i="2"></i>Confirmed lost</span></div>
+        <div class="at-chart" data-draw="pulled" data-source="pulled_calc"></div>
+      </div>
+    </div>
+    <div class="at-card" id="tanks">
+      <h3>Tanks: confirmed losses and replacements per year</h3>
+      <p class="at-note">WarSpotting counts only tanks confirmed on camera. For 2024 the IISS estimated <b data-draw="num" data-source="tanks" data-field="iiss_tanks_lost" data-where="year=2024">—</b> tanks lost and more than <b data-draw="num" data-source="tanks" data-field="iiss_tanks_fielded" data-where="year=2024">—</b> new, refurbished or repaired tanks fielded, so Russia roughly kept pace that year. New-build T-90M output is about <b data-draw="num" data-source="tank_new" data-field="per_year" data-where="item=New-build%20T-90M">—</b> a year, according to leaked Uralvagonzavod documents; the rest of the replacements came from storage.</p>
+      <div class="at-chart" data-draw="tanks" data-source="tanks"></div>
+    </div>
+  </section>
+
+  <section class="at-sec" id="firing">
+    <h2>Consumption: what it fires needs new parts every time</h2>
+    <p>A drone is used once. Each launch has to be replaced by a new one, built with new components, and many of those come from abroad.</p>
+    <div class="at-grid">
+      <div class="at-card" id="drones">
+        <h3>Drone launches against production estimates</h3>
+        <p class="at-note">Monthly Shahed-type launches, split by ISIS's estimated share of strike drones. Dots are Ukrainian intelligence's estimates of monthly strike-drone production at the date each was made: <b data-draw="num" data-source="production" data-field="per_month" data-where="item=Shahed-type">—</b> in September 2025 and <b data-draw="num" data-source="production" data-field="per_month" data-where="item=Geran-2">—</b> in August 2026.</p>
+        <div class="at-legend"><span><i class="at-sw" data-draw="sw" data-i="0"></i>Strike drones (est.)</span><span><i class="at-sw" data-draw="sw" data-i="muted"></i>Decoys and other types</span><span><i class="at-sw dot" data-draw="sw" data-i="ref"></i>Production estimate</span></div>
+        <div class="at-chart" data-draw="launches" data-source="launches strike_share production"></div>
+      </div>
+      <div class="at-card" id="parts">
+        <h3>Foreign component records launched per month</h3>
+        <p class="at-note">Each month's strike drones times the <b data-draw="num" data-source="monthly_unit" data-field="foreign" data-where="family=Shahed-136%20%2F%20Geran-2">—</b> foreign records in GUR's Shahed-136 teardown, plus the rest times the <b data-draw="num" data-source="monthly_unit" data-field="foreign" data-where="family=Gerbera%20(decoy)">—</b> in its Gerbera decoy. Lines are the central estimate; shaded bands run from all-decoy to all-Shahed.</p>
+        <div class="at-legend"><span><i class="at-sw" data-draw="sw" data-i="0"></i>All foreign records</span><span><i class="at-sw" data-draw="sw" data-i="1"></i>From EU-owned firms</span></div>
+        <div class="at-chart" data-draw="parts" data-source="monthly"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="at-sec" id="window">
+    <h2>Firing vs losing, over the same months</h2>
+    <p>Both sides of the comparison cover January 2025 to September 2026. Losses come by year, so the matched platforms include October 2026, which slightly favours losses.</p>
+    <div class="at-grid">
+      <div class="at-card" id="scale">
+        <h3>Foreign component records, Jan 2025 to Sep 2026</h3>
+        <p class="at-note">Matched losses are shown as if every lost unit were replaced with a new build, which is an upper bound: most lost armour was replaced from storage. Whiskers on the drone bars run from all-decoy to all-Shahed.</p>
+        <div class="at-chart" data-draw="scale" data-source="totals"></div>
+      </div>
+      <div class="at-card" id="linked">
+        <h3>Matched platforms lost, Jan 2025 to Oct 2026</h3>
+        <p class="at-note">The 14 WarSpotting platform types that GUR has torn down. Records per unit come from one teardown of each type.</p>
+        <div class="at-tablewrap">
+          <table data-source="linked" data-row-key="family">
+            <thead><tr>
+              <th data-field="label">Platform</th>
+              <th data-source="linked_calc" data-field="lost_window" class="n">Lost</th>
+              <th data-source="linked_calc" data-field="foreign_each" class="n hide-n">Foreign records each</th>
+              <th data-source="linked_calc" data-field="eu_each" class="n hide-n">EU-owned each</th>
+              <th data-source="linked_calc" data-field="records_lost" class="n">Foreign records lost</th>
+              <th data-source="linked_calc" data-field="eu_lost" class="n">EU-owned lost</th>
+            </tr></thead>
+            <tbody data-draw="linked"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="at-sec" id="missiles">
+    <h2>Not in the totals: missiles and glide bombs</h2>
+    <p>Monthly launch counts by missile type are not published for the whole period, so missiles and glide bombs stay out of the totals above. One month with published figures shows how much they would add.</p>
+    <div class="at-grid">
+      <div class="at-card" id="oct">
+        <h3>Component records used in October 2025</h3>
+        <p class="at-note">Missiles carry about as many records per unit as a Shahed-136, but they are fired in the hundreds, not thousands. Adding missiles and glide bombs raises October 2025's total by about <b data-draw="pct" data-source="oct_share" data-field="value" data-where="metric=added_share">—</b>. Missile and glide-kit figures count all GUR records, some of them Russian-made, so they are an upper bound.</p>
+        <div class="at-chart" data-draw="oct" data-source="oct_calc"></div>
+      </div>
+      <div class="at-card" id="weapons">
+        <h3>GUR records per unit</h3>
+        <p class="at-note">Kh-101 stands in for all cruise missiles, Iskander-M for all ballistic missiles and the UMPK-PD kit for all glide bombs. The plain UMPK kit has no GUR page of its own.</p>
+        <div class="at-tablewrap">
+          <table data-source="other_weapons" data-row-key="weapon">
+            <thead><tr>
+              <th data-field="weapon">Weapon</th>
+              <th data-field="kind" class="hide-n">Type</th>
+              <th data-field="records_per_unit" class="n">Records per unit</th>
+              <th data-field="used_oct2025" class="n">Used, Oct 2025</th>
+            </tr></thead>
+            <tbody data-draw="weapons"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="at-card" id="losses">
+    <h3>Documented losses per month, by category</h3>
+    <p class="at-note">Each panel has its own scale, so compare shapes, not heights. Recent months are undercounted because footage surfaces late, and the front has shifted from armoured assaults to small infantry and drone units, so read the drop since 2025 as partly a change in the war and partly a reporting lag.</p>
+    <div class="at-small" data-draw="losses" data-source="losses"></div>
+  </section>
+
+  <section class="at-method" id="method">
+    <h2>How this is built</h2>
+    <ul>
+      <li><b>What a component record is.</b> GUR's War &amp; Sanctions database lists each component it found in a teardown as one record: name and marking, manufacturer and the manufacturer's home country. It records no quantities, and one part type can appear more than once. So records per unit measure foreign dependence, not a count of chips. "Foreign" here excludes records GUR attributes to Russia or Belarus and those it could not identify.</li>
+      <li><b>Strike share.</b> ISIS's monthly share of strike drones in Shahed-type launches from September 2025 to June 2026; its 2025 full-year share (59%) for January to August 2025; and its January to June 2026 average (64%) for July to September 2026, which is this dashboard's assumption. The non-strike share includes Garpiya-A1 strike drones, so the central estimate counts too many decoys and is, if anything, low.</li>
+      <li><b>Launches.</b> Monthly Shahed-type totals published by ISIS from Ukrainian Air Force reports. July and September 2026 are ISIS reporting baselines, which it says may be incomplete.</li>
+      <li><b>Losses.</b> All Russian losses in WarSpotting's API as retrieved on 1 November 2026, excluding damaged vehicles. Armoured vehicles are infantry fighting and mobility vehicles; artillery is towed, self-propelled and rocket; air defence includes radars and jammers.</li>
+      <li><b>Storage.</b> Satellite counts of storage bases by the analyst Jompy, as reported by Euromaidan Press (tanks, October 2025 and June 2026) and UkraNews (IFVs, APCs and artillery, October 2025). One analyst's counts; vehicles under roofs are not visible.</li>
+      <li><b>Matching.</b> WarSpotting models are matched to GUR weapon families by name. T-72 means T-72B3 variants only; the R-330 jammer means the R-330BMV.</li>
+      <li><b>Not a trade measure.</b> These are components embedded in weapons Russia used or lost, not imports. They show what Russia must keep sourcing to sustain this tempo.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+  dash.calc('monthly_unit', {
+    inputs: ['profiles'],
+    title: 'Foreign records per unit',
+    description: 'GUR records per teardown minus those attributed to Russia or Belarus and unidentified ones.',
+    fn: (profiles) => profiles.map((r) => ({family: r.family, foreign: Number(r.us) + Number(r.eu) + Number(r.china) + Number(r.other), eu: Number(r.eu)})),
+  });
+
+  dash.calc('monthly', {
+    inputs: ['launches', 'strike_share', 'monthly_unit'],
+    title: 'Foreign records launched per month',
+    description: 'Strike drones times Shahed-136 records plus the rest times Gerbera records, with all-decoy and all-Shahed bounds.',
+    fn: (launches, strike_share, monthly_unit) => {
+      const u = (f) => monthly_unit.find((r) => r.family === f) || {};
+      const sh = u('Shahed-136 / Geran-2'), ge = u('Gerbera (decoy)');
+      return launches.map((r) => {
+        const n = Number(r.launched);
+        const s = Number((strike_share.find((x) => x.month === r.month) || {}).strike_share);
+        return {month: r.month, launched: n, strike: Math.round(n * s), other: n - Math.round(n * s), share: s,
+          mid: n * (s * sh.foreign + (1 - s) * ge.foreign), low: n * ge.foreign, high: n * sh.foreign,
+          eu_mid: n * (s * sh.eu + (1 - s) * ge.eu), eu_low: n * ge.eu, eu_high: n * sh.eu};
+      });
+    },
+  });
+
+  dash.calc('linked_calc', {
+    inputs: ['linked', 'monthly_unit'],
+    title: 'Foreign records in matched losses',
+    description: 'Units lost in 2025 and 2026 times the foreign and EU-owned records in one teardown.',
+    fn: (linked, monthly_unit) => linked.map((r) => {
+      const u = monthly_unit.find((x) => x.family === r.family) || {};
+      const lost = Number(r.l2025) + Number(r.l2026);
+      return {family: r.family, lost_window: lost, foreign_each: u.foreign, eu_each: u.eu, records_lost: lost * u.foreign, eu_lost: lost * u.eu};
+    }),
+  });
+
+  dash.calc('totals', {
+    inputs: ['monthly', 'losses', 'linked_calc'],
+    title: 'Headline totals',
+    description: 'Jan 2025 to Sep 2026: launches, strike drones, foreign and EU-owned records carried, documented losses, and records in matched losses.',
+    fn: (monthly, losses, linked_calc) => {
+      const sum = (k) => monthly.reduce((s, r) => s + r[k], 0);
+      const lostRecords = linked_calc.reduce((s, r) => s + r.records_lost, 0);
+      const lostEu = linked_calc.reduce((s, r) => s + r.eu_lost, 0);
+      return [
+        {metric: 'launches', value: sum('launched')},
+        {metric: 'strike_launched', value: sum('strike')},
+        {metric: 'drone_low', value: sum('low')},
+        {metric: 'drone_mid', value: Math.round(sum('mid'))},
+        {metric: 'drone_high', value: sum('high')},
+        {metric: 'eu_low', value: sum('eu_low')},
+        {metric: 'eu_mid', value: Math.round(sum('eu_mid'))},
+        {metric: 'eu_high', value: sum('eu_high')},
+        {metric: 'losses_window', value: losses.filter((r) => r.month >= '2025-01' && r.month <= '2026-09').reduce((s, r) => s + Number(r.losses), 0)},
+        {metric: 'lost_records', value: lostRecords},
+        {metric: 'lost_eu', value: lostEu},
+        {metric: 'ratio', value: Math.round(sum('mid') / lostRecords)},
+      ];
+    },
+  });
+
+  dash.calc('pulled_calc', {
+    inputs: ['storage', 'losses'],
+    title: 'Pulled from storage vs lost',
+    description: 'Pre-war storage minus October 2025 count, against WarSpotting losses from Feb 2022 to Oct 2025.',
+    fn: (storage, losses) => {
+      const st = (c) => storage.filter((r) => r.category === c && r.date === '2025-10').reduce((s, r) => s + Number(r.prewar) - Number(r.remaining), 0);
+      const lo = (c) => losses.filter((r) => r.category === c && r.month <= '2025-10').reduce((s, r) => s + Number(r.losses), 0);
+      return [
+        {category: 'Tanks', pulled: st('Tanks'), lost: lo('Tanks')},
+        {category: 'IFVs and APCs', pulled: st('IFVs') + st('APCs'), lost: lo('Armoured vehicles')},
+        {category: 'Artillery', pulled: st('Artillery'), lost: lo('Artillery')},
+      ];
+    },
+  });
+
+  dash.calc('oct_calc', {
+    inputs: ['monthly', 'other_weapons'],
+    title: 'Records used in October 2025',
+    description: 'Shahed-type central estimate for October 2025 next to missiles and glide bombs used that month times GUR records per unit.',
+    fn: (monthly, other_weapons) => {
+      const d = monthly.find((r) => r.month === '2025-10') || {};
+      return [{source: 'Shahed-type drones', records: Math.round(d.mid)}].concat(
+        other_weapons.filter((r) => r.used_oct2025 !== '' && r.used_oct2025 != null).map((r) => ({source: r.kind + 's', records: Number(r.used_oct2025) * Number(r.records_per_unit)})));
+    },
+  });
+
+  dash.calc('oct_share', {
+    inputs: ['oct_calc'],
+    title: 'What missiles and glide bombs add',
+    description: 'Missile and glide-bomb records as a share of Shahed-type records in October 2025.',
+    fn: (oct_calc) => {
+      const drones = oct_calc.filter((r) => r.source === 'Shahed-type drones').reduce((s, r) => s + r.records, 0);
+      const rest = oct_calc.filter((r) => r.source !== 'Shahed-type drones').reduce((s, r) => s + r.records, 0);
+      return [{metric: 'added_share', value: rest / drones}];
+    },
+  });
+
+  dash.calc('bri', {
+    inputs: ['monthly'],
+    title: 'Burn Rate Index',
+    description: 'Central estimate of foreign component records fired in the latest month and the month before, and the change between them.',
+    fn: (monthly) => {
+      const names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const s = [...monthly].sort((a, b) => (a.month < b.month ? -1 : 1));
+      const L = s[s.length - 1], P = s[s.length - 2];
+      const lab = (m) => names[Number(m.slice(5, 7)) - 1] + ' ' + m.slice(0, 4);
+      return [
+        {metric: 'latest', month: L.month, label: lab(L.month), value: Math.round(L.mid), eu: Math.round(L.eu_mid)},
+        {metric: 'previous', month: P.month, label: lab(P.month), value: Math.round(P.mid), eu: Math.round(P.eu_mid)},
+        {metric: 'change', value: (L.mid - P.mid) / P.mid},
+      ];
+    },
+  });
+
+  dash.draw('lbl', (el) => {
+    const d = dash.data(el.dataset.source);
+    if (d.status !== 'ok') { el.textContent = '—'; return; }
+    const conds = (el.dataset.where || '').split('&').map((p) => p.split('=').map(decodeURIComponent));
+    const row = d.data.find((r) => conds.every(([k, val]) => String(r[k]) === val));
+    el.textContent = row ? String(row[el.dataset.field]) : '—';
+  });
+  dash.draw('chg', (el) => { const v = window.atPick(el); el.textContent = v == null || isNaN(v) ? '—' : (v >= 0 ? '+' : '−') + d3.format('.0%')(Math.abs(v)); });
+  dash.draw('spark', (el) => {
+    const d = dash.data('monthly');
+    el.replaceChildren();
+    if (d.status !== 'ok') { el.textContent = '—'; return; }
+    const rows = [...d.data].sort((a, b) => (a.month < b.month ? -1 : 1)).map((r) => ({...r, date: new Date(r.month + '-01T00:00:00Z')}));
+    const W = Math.max(240, el.clientWidth), H = 64, m = {t: 6, r: 8, b: 6, l: 2};
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Burn Rate Index by month');
+    const x = d3.scaleUtc(d3.extent(rows, (r) => r.date), [m.l, W - m.r]);
+    const y = d3.scaleLinear([0, d3.max(rows, (r) => r.mid)], [H - m.b, m.t]);
+    svg.append('path').datum(rows).attr('fill', 'none').attr('stroke', dash.colors[0]).attr('stroke-width', 2).attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round').attr('d', d3.line().x((r) => x(r.date)).y((r) => y(r.mid)));
+    const last = rows[rows.length - 1];
+    svg.append('circle').attr('cx', x(last.date)).attr('cy', y(last.mid)).attr('r', 3.5).attr('fill', dash.colors[0]);
+    const tip = window.atTip(el);
+    const step = rows.length > 1 ? x(rows[1].date) - x(rows[0].date) : W;
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => x(r.date) - step / 2).attr('width', step).attr('y', 0).attr('height', H).attr('fill', 'transparent')
+      .on('mousemove', (ev, r) => tip.show(ev, [['k', d3.utcFormat('%B %Y')(r.date)], ['', `${window.atCompact(r.mid)} records`]]))
+      .on('mouseleave', () => tip.hide());
+  });
+
+  window.atPick = (el) => {
+    const d = dash.data(el.dataset.source);
+    if (d.status !== 'ok') return null;
+    const conds = (el.dataset.where || '').split('&').map((p) => p.split('=').map(decodeURIComponent));
+    const row = d.data.find((r) => conds.every(([k, val]) => String(r[k]) === val));
+    return row && row[el.dataset.field] !== '' ? Number(row[el.dataset.field]) : null;
+  };
+  window.atCompact = (v) => Intl.NumberFormat('en', {notation: 'compact', maximumFractionDigits: 1}).format(v);
+  dash.draw('num', (el) => { const v = atPick(el); el.textContent = v == null || isNaN(v) ? '—' : d3.format(',')(Math.round(v)); });
+  dash.draw('cmp', (el) => { const v = atPick(el); el.textContent = v == null || isNaN(v) ? '—' : (v >= 10000 ? atCompact(v) : d3.format(',')(Math.round(v))); });
+  dash.draw('x', (el) => { const v = atPick(el); el.textContent = v == null || isNaN(v) ? '—' : d3.format(',')(v); });
+  dash.draw('pct', (el) => { const v = atPick(el); el.textContent = v == null || isNaN(v) ? '—' : d3.format('.0%')(v); });
+  dash.draw('sw', (el) => {
+    const i = el.dataset.i;
+    el.style.background = i === 'muted' ? 'var(--cds-chart-muted)' : i === 'ref' ? 'var(--cds-chart-reference)' : dash.colors[Number(i)];
+  });
+
+  window.atTip = (box) => {
+    let t = box.querySelector('.at-tip');
+    if (!t) { t = document.createElement('div'); t.className = 'at-tip'; t.hidden = true; box.appendChild(t); }
+    return {
+      show(ev, lines) {
+        t.replaceChildren(...lines.map(([cls, txt]) => { const d = document.createElement('div'); if (cls) d.className = cls; d.textContent = txt; return d; }));
+        t.hidden = false;
+        const b = box.getBoundingClientRect();
+        let x = ev.clientX - b.left + 12, y = ev.clientY - b.top + 12;
+        if (x + t.offsetWidth > b.width) x = Math.max(0, ev.clientX - b.left - t.offsetWidth - 12);
+        if (y + t.offsetHeight > b.height) y = Math.max(0, ev.clientY - b.top - t.offsetHeight - 12);
+        t.style.left = x + 'px'; t.style.top = y + 'px';
+      },
+      hide() { t.hidden = true; },
+    };
+  };
+  window.atAxis = (g) => { g.attr('font-size', null).attr('font-family', null); g.select('.domain').remove(); g.selectAll('line').attr('stroke', 'var(--cds-chart-grid)'); g.selectAll('text').attr('fill', 'var(--color-fg-muted)').attr('font-size', 11); };
+  window.atMeasure = (svg, strings, size) => { const t = svg.append('text').attr('font-size', size || 11).attr('visibility', 'hidden'); let m = 0; strings.forEach((s) => { t.text(s); m = Math.max(m, t.node().getComputedTextLength()); }); t.remove(); return m; };
+  window.atMonth = (m) => new Date(m + '-01T00:00:00Z');
+  window.atCats = ['Armoured vehicles', 'Tanks', 'Transport', 'Artillery', 'Air defence', 'Drones', 'Aircraft', 'Other'];
+
+  // Horizontal bars: rows [{label, value, color, lo?, hi?, text}]
+  window.atHBars = (el, rows, opts) => {
+    const fmt = (opts && opts.fmt) || atCompact;
+    const W = Math.max(280, el.clientWidth), rowH = 40, top = 4, bottom = 24;
+    const H = top + rows.length * rowH + bottom;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', (opts && opts.aria) || 'Bar chart');
+    const left = atMeasure(svg, rows.map((r) => r.label), 12) + 12;
+    const right = atMeasure(svg, rows.map((r) => fmt(r.hi || r.value)), 11) + 14;
+    const x = d3.scaleLinear([0, d3.max(rows, (r) => Math.max(r.value, r.hi || 0))], [left, W - right]).nice();
+    const y = d3.scaleBand(rows.map((r) => r.label), [top, H - bottom]).padding(0.3);
+    atAxis(svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(Math.max(2, Math.floor((W - left) / 90))).tickSize(-(H - top - bottom)).tickFormat((t) => atCompact(t))));
+    const g = svg.append('g').selectAll('g').data(rows).join('g');
+    g.append('text').attr('x', left - 8).attr('y', (r) => y(r.label) + y.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'end').attr('font-size', 12).attr('fill', 'var(--color-fg)').text((r) => r.label);
+    g.append('rect').attr('x', x(0)).attr('y', (r) => y(r.label)).attr('height', y.bandwidth()).attr('width', (r) => Math.max(2, x(r.value) - x(0))).attr('rx', 2).attr('fill', (r) => r.color);
+    g.filter((r) => r.hi != null).each(function (r) {
+      const s = d3.select(this), cy = y(r.label) + y.bandwidth() / 2;
+      s.append('line').attr('x1', x(r.lo)).attr('x2', x(r.hi)).attr('y1', cy).attr('y2', cy).attr('stroke', 'var(--color-fg)').attr('stroke-width', 1.5);
+      [r.lo, r.hi].forEach((v) => s.append('line').attr('x1', x(v)).attr('x2', x(v)).attr('y1', cy - 5).attr('y2', cy + 5).attr('stroke', 'var(--color-fg)').attr('stroke-width', 1.5));
+    });
+    g.append('text').attr('x', (r) => x(Math.max(r.value, r.hi || 0)) + 6).attr('y', (r) => y(r.label) + y.bandwidth() / 2).attr('dy', '0.35em').attr('font-size', 11).attr('fill', 'var(--color-fg-muted)').text((r) => fmt(r.value));
+  };
+</script>
+
+<script>
+  dash.draw('storage', (el) => {
+    const d = dash.data('storage');
+    el.replaceChildren();
+    if (d.status !== 'ok') { el.textContent = '—'; return; }
+    const rows = d.data.filter((r) => r.date !== '2022-02').map((r) => ({label: `${r.category}, ${d3.utcFormat('%b %Y')(atMonth(r.date))}`, prewar: Number(r.prewar), remaining: Number(r.remaining), restorable: r.restorable === '' ? null : Number(r.restorable)}));
+    const W = Math.max(280, el.clientWidth), rowH = 40, top = 4, bottom = 24;
+    const H = top + rows.length * rowH + bottom;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Share of pre-war storage stock remaining');
+    const left = atMeasure(svg, rows.map((r) => r.label), 12) + 12;
+    const right = atMeasure(svg, rows.map((r) => `${d3.format(',')(r.remaining)} of ${d3.format(',')(r.prewar)}`), 11) + 14;
+    const x = d3.scaleLinear([0, 1], [left, W - right]);
+    const y = d3.scaleBand(rows.map((r) => r.label), [top, H - bottom]).padding(0.3);
+    atAxis(svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(W < 480 ? 2 : 4).tickSize(-(H - top - bottom)).tickFormat(d3.format('.0%'))));
+    const tip = atTip(el);
+    const g = svg.append('g').selectAll('g').data(rows).join('g');
+    g.append('text').attr('x', left - 8).attr('y', (r) => y(r.label) + y.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'end').attr('font-size', 12).attr('fill', 'var(--color-fg)').text((r) => r.label);
+    g.append('rect').attr('x', x(0)).attr('y', (r) => y(r.label)).attr('height', y.bandwidth()).attr('width', x(1) - x(0)).attr('rx', 2).attr('fill', 'var(--cds-chart-muted)').attr('opacity', 0.35);
+    g.append('rect').attr('x', x(0)).attr('y', (r) => y(r.label)).attr('height', y.bandwidth()).attr('width', (r) => x(r.remaining / r.prewar) - x(0)).attr('rx', 2).attr('fill', dash.colors[0]);
+    g.filter((r) => r.restorable != null).append('rect').attr('x', x(0)).attr('y', (r) => y(r.label) + y.bandwidth() * 0.25).attr('height', y.bandwidth() * 0.5).attr('width', (r) => x(r.restorable / r.prewar) - x(0)).attr('rx', 2).attr('fill', dash.colors[1]);
+    g.append('text').attr('x', x(1) + 6).attr('y', (r) => y(r.label) + y.bandwidth() / 2).attr('dy', '0.35em').attr('font-size', 11).attr('fill', 'var(--color-fg-muted)').text((r) => `${d3.format(',')(r.remaining)} of ${d3.format(',')(r.prewar)}`);
+    g.append('rect').attr('x', x(0)).attr('y', (r) => y(r.label)).attr('height', y.bandwidth()).attr('width', x(1) - x(0)).attr('fill', 'transparent')
+      .on('mousemove', (ev, r) => tip.show(ev, [['k', r.label], ['', `Left: ${d3.format(',')(r.remaining)} (${d3.format('.0%')(r.remaining / r.prewar)})`], ['', `Pre-war: ${d3.format(',')(r.prewar)}`], ...(r.restorable != null ? [['', `Judged restorable: ${d3.format(',')(r.restorable)}`]] : [])]))
+      .on('mouseleave', () => tip.hide());
+  });
+
+  dash.draw('pulled', (el) => {
+    const d = dash.data('pulled_calc');
+    el.replaceChildren();
+    if (d.status !== 'ok') { el.textContent = '—'; return; }
+    const W = Math.max(280, el.clientWidth), H = 220, m = {t: 8, r: 8, b: 24, l: 8};
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Vehicles pulled from storage against confirmed losses');
+    const left = atMeasure(svg, d.data.map((r) => r.category), 12) + 14;
+    const right = atMeasure(svg, d.data.map((r) => d3.format(',')(r.pulled)), 11) + 14;
+    const y0 = d3.scaleBand(d.data.map((r) => r.category), [m.t, H - m.b]).padding(0.25);
+    const y1 = d3.scaleBand(['pulled', 'lost'], [0, y0.bandwidth()]).padding(0.1);
+    const x = d3.scaleLinear([0, d3.max(d.data, (r) => Math.max(r.pulled, r.lost))], [left, W - right]).nice();
+    atAxis(svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(Math.max(2, Math.floor((W - left) / 90))).tickSize(-(H - m.t - m.b)).tickFormat((t) => atCompact(t))));
+    const g = svg.append('g').selectAll('g').data(d.data).join('g').attr('transform', (r) => `translate(0,${y0(r.category)})`);
+    g.append('text').attr('x', left - 8).attr('y', y0.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'end').attr('font-size', 12).attr('fill', 'var(--color-fg)').text((r) => r.category);
+    [['pulled', 0], ['lost', 2]].forEach(([k, c]) => {
+      g.append('rect').attr('x', x(0)).attr('y', y1(k)).attr('height', y1.bandwidth()).attr('width', (r) => Math.max(2, x(r[k]) - x(0))).attr('rx', 2).attr('fill', dash.colors[c]);
+      g.append('text').attr('x', (r) => x(r[k]) + 5).attr('y', y1(k) + y1.bandwidth() / 2).attr('dy', '0.35em').attr('font-size', 11).attr('fill', 'var(--color-fg-muted)').text((r) => d3.format(',')(r[k]));
+    });
+  });
+
+  dash.draw('tanks', (el) => {
+    const d = dash.data('tanks');
+    el.replaceChildren();
+    if (d.status !== 'ok') { el.textContent = '—'; return; }
+    const rows = d.data.map((r) => ({year: String(r.year), ws: Number(r.warspotting_tanks), lost: r.iiss_tanks_lost === '' ? null : Number(r.iiss_tanks_lost), fielded: r.iiss_tanks_fielded === '' ? null : Number(r.iiss_tanks_fielded)}));
+    const W = Math.max(280, el.clientWidth), H = 230, m = {t: 16, r: 8, b: 24, l: 40};
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Tank losses per year');
+    const labW = atMeasure(svg, ['IISS lost', 'Fielded'], 11) + 10;
+    const x = d3.scaleBand(rows.map((r) => r.year), [m.l, W - m.r - labW]).padding(0.3);
+    const y = d3.scaleLinear([0, d3.max(rows, (r) => Math.max(r.ws, r.lost || 0, r.fielded || 0))], [H - m.b, m.t]).nice();
+    atAxis(svg.append('g').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(4).tickSize(-(W - m.l - m.r - labW)).tickFormat(d3.format(','))));
+    atAxis(svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8)));
+    const bw = Math.min(32, x.bandwidth());
+    const tip = atTip(el);
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => x(r.year) + (x.bandwidth() - bw) / 2).attr('width', bw).attr('y', (r) => y(r.ws)).attr('height', (r) => y(0) - y(r.ws)).attr('rx', 2).attr('fill', dash.colors[0])
+      .on('mousemove', (ev, r) => tip.show(ev, [['k', r.year], ['', `Confirmed on camera: ${d3.format(',')(r.ws)}`], ...(r.lost ? [['', `IISS estimate lost: ${d3.format(',')(r.lost)}`], ['', `IISS fielded: over ${d3.format(',')(r.fielded)}`]] : [])]))
+      .on('mouseleave', () => tip.hide());
+    rows.filter((r) => r.lost).forEach((r) => {
+      [[r.lost, 'IISS lost'], [r.fielded, 'Fielded']].forEach(([v, lab], i) => {
+        const yy = y(v), x0 = x(r.year) - 6, x1 = x(r.year) + x.bandwidth() + 6;
+        svg.append('line').attr('x1', x0).attr('x2', x1).attr('y1', yy).attr('y2', yy).attr('stroke', i === 0 ? 'var(--cds-chart-status-critical)' : 'var(--cds-chart-reference)').attr('stroke-width', 2).attr('stroke-dasharray', i === 0 ? null : '4 3');
+        svg.append('text').attr('x', x1 + 4).attr('y', yy + (i === 0 ? 11 : -3)).attr('font-size', 11).attr('fill', 'var(--color-fg-muted)').text(lab);
+      });
+    });
+  });
+</script>
+
+<script>
+  dash.draw('launches', (el) => {
+    const d = dash.data('launches'), s = dash.data('strike_share'), p = dash.data('production');
+    el.replaceChildren();
+    if (d.status !== 'ok' || s.status !== 'ok') { el.textContent = '—'; return; }
+    const share = new Map(s.data.map((r) => [r.month, Number(r.strike_share)]));
+    const basis = new Map(s.data.map((r) => [r.month, r.basis]));
+    const rows = d.data.map((r) => { const n = Number(r.launched), st = Math.round(n * (share.get(r.month) || 0)); return {month: r.month, n, strike: st, other: n - st, note: r.note}; });
+    const prod = p.status === 'ok' ? p.data.map((r) => ({item: r.item, v: Number(r.per_month), month: String(r.date).slice(0, 7)})) : [];
+    const W = Math.max(280, el.clientWidth), H = 250, m = {t: 14, r: 8, b: 24, l: 44};
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Monthly drone launches split into strike drones and decoys, with production estimates');
+    const x = d3.scaleBand(rows.map((r) => r.month), [m.l, W - m.r]).padding(0.2);
+    const y = d3.scaleLinear([0, d3.max(rows, (r) => r.n)], [H - m.b, m.t]).nice();
+    atAxis(svg.append('g').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(W - m.l - m.r)).tickFormat(d3.format(','))));
+    const ticks = rows.map((r) => r.month).filter((mm) => /-(01|07)$/.test(mm));
+    atAxis(svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).tickValues(ticks).tickSize(0).tickPadding(8).tickFormat((v) => d3.utcFormat("%b '%y")(atMonth(v)))));
+    const bw = Math.min(32, x.bandwidth()), bx = (r) => x(r.month) + (x.bandwidth() - bw) / 2;
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', bx).attr('width', bw).attr('y', (r) => y(r.strike)).attr('height', (r) => y(0) - y(r.strike)).attr('fill', dash.colors[0]);
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', bx).attr('width', bw).attr('y', (r) => y(r.n)).attr('height', (r) => y(r.strike) - y(r.n)).attr('rx', 2).attr('fill', 'var(--cds-chart-muted)');
+    prod.filter((q) => x(q.month) != null).forEach((q) => {
+      const cx = x(q.month) + x.bandwidth() / 2, cy = y(q.v);
+      svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 4.5).attr('fill', 'var(--cds-chart-reference)').attr('stroke', 'var(--color-panel)').attr('stroke-width', 1.5);
+      const label = `${q.item} output: ${d3.format(',')(q.v)}/mo`;
+      const tw = atMeasure(svg, [label], 11);
+      const anchorEnd = cx + 8 + tw > W - m.r;
+      svg.append('text').attr('x', anchorEnd ? cx - 8 : cx + 8).attr('y', cy - 8).attr('text-anchor', anchorEnd ? 'end' : 'start').attr('font-size', 11).attr('fill', 'var(--color-fg)').text(label);
+    });
+    const tip = atTip(el);
+    const fmt = d3.format(',');
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => x(r.month)).attr('width', x.bandwidth()).attr('y', m.t).attr('height', H - m.t - m.b).attr('fill', 'transparent')
+      .on('mousemove', (ev, r) => tip.show(ev, [['k', d3.utcFormat('%B %Y')(atMonth(r.month))], ['', `${fmt(r.n)} launched`], ['', `Strike drones (est.): ${fmt(r.strike)}`], ['', `Decoys and other: ${fmt(r.other)}`], ['k', `Split: ${basis.get(r.month) || '—'}`], ...(r.note ? [['k', r.note]] : [])]))
+      .on('mouseleave', () => tip.hide());
+  });
+
+  dash.draw('parts', (el) => {
+    const d = dash.data('monthly');
+    el.replaceChildren();
+    if (d.status !== 'ok') { el.textContent = '—'; return; }
+    const rows = d.data.map((r) => ({...r, date: atMonth(r.month)}));
+    const W = Math.max(280, el.clientWidth), H = 250, m = {t: 14, r: 10, b: 24, l: 48};
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Foreign component records carried by launched drones per month');
+    const x = d3.scaleUtc(d3.extent(rows, (r) => r.date), [m.l, W - m.r]);
+    const y = d3.scaleLinear([0, d3.max(rows, (r) => r.high)], [H - m.b, m.t]).nice();
+    atAxis(svg.append('g').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(W - m.l - m.r)).tickFormat((v) => atCompact(v))));
+    atAxis(svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(Math.max(3, Math.floor(W / 110))).tickSize(0).tickPadding(8).tickFormat(d3.utcFormat("%b '%y"))));
+    [['low', 'high', 'mid', 0], ['eu_low', 'eu_high', 'eu_mid', 1]].forEach(([lo, hi, mid, c]) => {
+      svg.append('path').datum(rows).attr('fill', dash.colors[c]).attr('opacity', 0.16).attr('d', d3.area().x((r) => x(r.date)).y0((r) => y(r[lo])).y1((r) => y(r[hi])));
+      svg.append('path').datum(rows).attr('fill', 'none').attr('stroke', dash.colors[c]).attr('stroke-width', 2).attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round').attr('d', d3.line().x((r) => x(r.date)).y((r) => y(r[mid])));
+    });
+    const tip = atTip(el);
+    const f = (v) => atCompact(v);
+    const step = rows.length > 1 ? (x(rows[1].date) - x(rows[0].date)) : W;
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => x(r.date) - step / 2).attr('width', step).attr('y', m.t).attr('height', H - m.t - m.b).attr('fill', 'transparent')
+      .on('mousemove', (ev, r) => tip.show(ev, [['k', d3.utcFormat('%B %Y')(r.date)], ['', `All foreign: ${f(r.mid)} (${f(r.low)} to ${f(r.high)})`], ['', `EU-owned: ${f(r.eu_mid)} (${f(r.eu_low)} to ${f(r.eu_high)})`]]))
+      .on('mouseleave', () => tip.hide());
+  });
+
+  dash.draw('scale', (el) => {
+    const d = dash.data('totals');
+    el.replaceChildren();
+    if (d.status !== 'ok') { el.textContent = '—'; return; }
+    const v = (k) => Number((d.data.find((r) => r.metric === k) || {}).value);
+    atHBars(el, [
+      {label: 'Drones launched: all foreign', value: v('drone_mid'), lo: v('drone_low'), hi: v('drone_high'), color: dash.colors[0]},
+      {label: 'Drones launched: EU-owned', value: v('eu_mid'), lo: v('eu_low'), hi: v('eu_high'), color: dash.colors[1]},
+      {label: 'Matched losses: all foreign', value: v('lost_records'), color: dash.colors[2]},
+      {label: 'Matched losses: EU-owned', value: v('lost_eu'), color: dash.colors[3]},
+    ], {aria: 'Foreign component records in drone launches against matched losses'});
+  });
+
+  dash.draw('linked', (tb) => {
+    const d = dash.data('linked'), c = dash.data('linked_calc');
+    tb.replaceChildren();
+    if (d.status !== 'ok') return;
+    const cm = new Map((c.status === 'ok' ? c.data : []).map((r) => [r.family, r]));
+    const fmt = (v) => v == null || isNaN(v) ? '—' : d3.format(',')(v);
+    [...d.data].sort((a, b) => ((cm.get(b.family) || {}).records_lost || 0) - ((cm.get(a.family) || {}).records_lost || 0)).forEach((r) => {
+      const k = cm.get(r.family) || {};
+      const tr = document.createElement('tr');
+      tr.dataset.key = encodeURIComponent(r.family);
+      [[r.label, ''], [fmt(k.lost_window), 'n'], [fmt(k.foreign_each), 'n hide-n'], [fmt(k.eu_each), 'n hide-n'], [fmt(k.records_lost), 'n'], [fmt(k.eu_lost), 'n']].forEach(([t, cl]) => { const td = document.createElement('td'); td.className = cl; td.textContent = t; tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+  });
+</script>
+
+<script>
+  dash.draw('oct', (el) => {
+    const d = dash.data('oct_calc');
+    el.replaceChildren();
+    if (d.status !== 'ok') { el.textContent = '—'; return; }
+    atHBars(el, d.data.map((r, i) => ({label: r.source, value: r.records, color: i === 0 ? dash.colors[0] : 'var(--cds-chart-muted)'})), {aria: 'Component records used in October 2025 by weapon type'});
+  });
+
+  dash.draw('weapons', (tb) => {
+    const d = dash.data('other_weapons');
+    tb.replaceChildren();
+    if (d.status !== 'ok') return;
+    d.data.forEach((r) => {
+      const tr = document.createElement('tr');
+      [[r.weapon, ''], [r.kind, 'hide-n'], [d3.format(',')(Number(r.records_per_unit)), 'n'], [r.used_oct2025 === '' ? '—' : d3.format(',')(Number(r.used_oct2025)), 'n']].forEach(([t, cl]) => { const td = document.createElement('td'); td.className = cl; td.textContent = t; tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+  });
+
+  dash.draw('losses', (el) => {
+    const d = dash.data('losses');
+    el.replaceChildren();
+    if (d.status !== 'ok') { el.textContent = '—'; return; }
+    const months = [...new Set(d.data.map((r) => r.month))].sort();
+    const byCat = new Map(atCats.map((c) => [c, new Map()]));
+    d.data.forEach((r) => { if (byCat.has(r.category)) byCat.get(r.category).set(r.month, Number(r.losses)); });
+    const fmt = d3.format(',');
+    atCats.forEach((cat, i) => {
+      const vals = months.map((mm) => ({month: mm, date: atMonth(mm), n: byCat.get(cat).get(mm) || 0}));
+      const fig = document.createElement('figure');
+      const cap = document.createElement('figcaption');
+      const nm = document.createElement('b'); nm.textContent = cat;
+      const tot = document.createElement('span'); tot.textContent = `${fmt(d3.sum(vals, (v) => v.n))} total`;
+      cap.append(nm, tot);
+      const box = document.createElement('div'); box.style.position = 'relative';
+      fig.append(cap, box);
+      el.appendChild(fig);
+      const W = Math.max(200, box.clientWidth || el.clientWidth / 2), H = 110, m = {t: 6, r: 4, b: 18, l: 34};
+      const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', `${cat} losses per month`);
+      const x = d3.scaleBand(months, [m.l, W - m.r]).paddingInner(0.15);
+      const y = d3.scaleLinear([0, d3.max(vals, (v) => v.n) || 1], [H - m.b, m.t]).nice();
+      atAxis(svg.append('g').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(2).tickSize(-(W - m.l - m.r)).tickFormat(d3.format(','))));
+      const years = months.filter((mm) => /-01$/.test(mm) && Number(mm.slice(0, 4)) % 2 === 1);
+      atAxis(svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).tickValues(years).tickSize(0).tickPadding(6).tickFormat((v) => v.slice(0, 4))));
+      svg.append('g').selectAll('rect').data(vals).join('rect').attr('x', (v) => x(v.month)).attr('width', x.bandwidth()).attr('y', (v) => y(v.n)).attr('height', (v) => y(0) - y(v.n)).attr('fill', dash.colors[i]);
+      const tip = atTip(box);
+      svg.append('g').selectAll('rect').data(vals).join('rect').attr('x', (v) => x(v.month)).attr('width', x.bandwidth()).attr('y', m.t).attr('height', H - m.t - m.b).attr('fill', 'transparent')
+        .on('mousemove', (ev, v) => tip.show(ev, [['k', d3.utcFormat('%b %Y')(v.date)], ['', `${cat}: ${fmt(v.n)}`]]))
+        .on('mouseleave', () => tip.hide());
+    });
+  });
+</script>
+
+</main>
+<footer class="site-foot">
+  <div class="site-foot-in">
+    <p><b>Sources.</b> Losses: <a href="https://ukr.warspotting.net/">WarSpotting</a>. Shahed-type launches and strike shares: <a href="https://isis-online.org/">Institute for Science and International Security</a>, from Ukrainian Air Force reports. Component records: <a href="https://war-sanctions.gur.gov.ua/en">GUR War &amp; Sanctions</a>. Storage counts: Jompy, via <a href="https://euromaidanpress.com/2026/06/14/russia-has-drained-72-of-its-cold-war-tank-reserve-only-851-are-left-to-restore/">Euromaidan Press</a> and <a href="https://ukranews.com/en/news/1109885-less-than-40-of-armored-vehicles-remain-at-russian-storage-bases-analysts-advise-not-to-expect-a">UkraNews</a>. Production estimates: Ukrainian intelligence, via <a href="https://kyivindependent.com/russia-can-produce-up-to-2-700-shahed-type-drones-per-month-intelligence-says/">Kyiv Independent</a> and <a href="https://militarnyi.com/en/news/russia-produces-about-2-800-geran-2-drones-per-month/">Militarnyi</a>. Missiles: <a href="https://www.csis.org/analysis/russias-intense-air-campaign-october">CSIS</a>. Tank estimates: IISS Military Balance 2025. This project is independent and not affiliated with any of these sources.</p>
+    <p>Analysis and text © Thomas Di Domenico, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Code MIT. Third-party data remains under its publishers' terms; see the repository for details.</p>
+  </div>
+</footer>
+<script>
+  // Point the GitHub link at this repository when served from GitHub Pages.
+  (() => {
+    const host = location.hostname, seg = location.pathname.split('/').filter(Boolean)[0];
+    if (host.endsWith('.github.io')) {
+      const user = host.replace('.github.io', '');
+      const repo = seg || `${user}.github.io`;
+      document.querySelectorAll('[data-repo]').forEach((a) => { a.href = `https://github.com/${user}/${repo}`; });
+    }
+    let t;
+    window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => dash.run(), 150); });
+    dash.load();
+  })();
+</script>
+</body>
+</html>

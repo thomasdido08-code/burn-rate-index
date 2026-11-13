@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this data or analysis, please cite it as below."
+title: "Burn Rate Index"
+abstract: "Monthly index of the foreign component records carried by the Shahed-type drones Russia launches at Ukraine, compared with documented equipment losses and storage-based resupply."
+authors:
+  - family-names: "Di Domenico"
+    given-names: "Thomas"
+date-released: 2026-11-06
+version: "1.0"
+license: CC-BY-4.0
+repository-code: "https://github.com/YOUR-USERNAME/burn-rate-index"
+url: "https://YOUR-USERNAME.github.io/burn-rate-index/"
+keywords:
+  - OSINT
+  - Russia
+  - Ukraine
+  - sanctions
+  - export controls
+  - drones
+  - Shahed
