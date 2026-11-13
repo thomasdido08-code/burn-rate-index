@@ -1,0 +1,15 @@
+family,label,kind,losses,l2022,l2023,l2024,l2025,l2026,parts_per_unit,eu_per_unit,us_per_unit,china_per_unit,high_priority_per_unit,gur_entry
+Orlan-10,Orlan-10 drone,Drone,250,121,53,39,34,3,63,7,32,2,39,"UAV ""Orlan-10"" (July 2022)"
+Zala 421-16E,Zala 421-16E drone,Drone,219,10,36,93,72,8,53,7,29,12,29,Zala421-16E UAV
+Supercam,Supercam drone,Drone,142,2,14,59,64,3,39,10,17,3,15,Supercam S350 UAV
+Eleron-3,Eleron-3 drone,Drone,38,21,13,4,0,0,25,9,13,0,14,"UAV ""Eleron-3SV"""
+Fenix,Fenix drone,Drone,26,2,0,9,12,3,37,8,14,6,26,"UAV ""Fenix"", Tail Number 20385"
+Kartograf,Kartograf drone,Drone,21,10,8,2,1,0,32,4,17,2,17,Kartograf UAV №3121
+Orion UAV,Orion drone,Drone,15,3,3,3,1,5,72,6,65,0,43,ORION UAV system
+Granat-4,Granat-4 drone,Drone,10,4,2,4,0,0,71,25,39,1,36,"""Granat-4"" UAV"
+Forpost-R,Forpost-R drone,Drone,6,4,2,0,0,0,77,12,56,0,44,Forpost-R UAV
+Ka-52,Ka-52 helicopter,Aircraft,44,29,12,2,0,1,127,4,117,1,88,Combat attack helicopter Ka-52
+Tor-M2,Tor-M2 air defence,Ground,27,6,8,3,1,9,8,0,4,0,5,Combat vehicle BM 9A331M Tor-M2
+R-330 jammers,R-330BMV jammer,Ground,10,5,2,2,1,0,112,5,89,0,62,Automated radio jamming station R-330 BMW
+T-72,T-72B3 tank,Ground,707,390,132,118,54,13,63,10,42,3,32,T-72B3 tank
+KamAZ Typhoon-K,Typhoon-K armoured truck,Ground,40,26,4,5,4,1,51,29,11,0,4,"KamAZ-63968 ""Typhoon-K"""

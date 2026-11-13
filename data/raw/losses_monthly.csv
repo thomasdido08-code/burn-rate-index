@@ -1,0 +1,444 @@
+month,category,losses
+2022-02,Air defence,19
+2022-02,Aircraft,12
+2022-02,Armoured vehicles,116
+2022-02,Artillery,10
+2022-02,Drones,1
+2022-02,Other,78
+2022-02,Tanks,54
+2022-02,Transport,130
+2022-03,Air defence,55
+2022-03,Aircraft,44
+2022-03,Armoured vehicles,578
+2022-03,Artillery,127
+2022-03,Drones,17
+2022-03,Other,185
+2022-03,Tanks,276
+2022-03,Transport,606
+2022-04,Air defence,24
+2022-04,Aircraft,11
+2022-04,Armoured vehicles,340
+2022-04,Artillery,79
+2022-04,Drones,32
+2022-04,Other,117
+2022-04,Tanks,158
+2022-04,Transport,398
+2022-05,Air defence,12
+2022-05,Aircraft,4
+2022-05,Armoured vehicles,281
+2022-05,Artillery,34
+2022-05,Drones,32
+2022-05,Other,57
+2022-05,Tanks,124
+2022-05,Transport,135
+2022-06,Air defence,3
+2022-06,Aircraft,7
+2022-06,Armoured vehicles,142
+2022-06,Artillery,39
+2022-06,Drones,18
+2022-06,Other,29
+2022-06,Tanks,53
+2022-06,Transport,108
+2022-07,Air defence,19
+2022-07,Aircraft,3
+2022-07,Armoured vehicles,125
+2022-07,Artillery,25
+2022-07,Drones,20
+2022-07,Other,17
+2022-07,Tanks,79
+2022-07,Transport,80
+2022-08,Air defence,5
+2022-08,Aircraft,10
+2022-08,Armoured vehicles,128
+2022-08,Artillery,27
+2022-08,Drones,22
+2022-08,Other,19
+2022-08,Tanks,50
+2022-08,Transport,74
+2022-09,Air defence,27
+2022-09,Aircraft,9
+2022-09,Armoured vehicles,411
+2022-09,Artillery,100
+2022-09,Drones,11
+2022-09,Other,133
+2022-09,Tanks,211
+2022-09,Transport,256
+2022-10,Air defence,23
+2022-10,Aircraft,12
+2022-10,Armoured vehicles,318
+2022-10,Artillery,85
+2022-10,Drones,13
+2022-10,Other,48
+2022-10,Tanks,138
+2022-10,Transport,167
+2022-11,Air defence,15
+2022-11,Armoured vehicles,250
+2022-11,Artillery,75
+2022-11,Drones,18
+2022-11,Other,61
+2022-11,Tanks,117
+2022-11,Transport,192
+2022-12,Air defence,7
+2022-12,Aircraft,5
+2022-12,Armoured vehicles,90
+2022-12,Artillery,22
+2022-12,Drones,11
+2022-12,Other,12
+2022-12,Tanks,40
+2022-12,Transport,58
+2023-01,Air defence,6
+2023-01,Aircraft,1
+2023-01,Armoured vehicles,77
+2023-01,Artillery,30
+2023-01,Drones,8
+2023-01,Other,11
+2023-01,Tanks,41
+2023-01,Transport,43
+2023-02,Air defence,10
+2023-02,Aircraft,3
+2023-02,Armoured vehicles,144
+2023-02,Artillery,37
+2023-02,Drones,10
+2023-02,Other,13
+2023-02,Tanks,61
+2023-02,Transport,39
+2023-03,Air defence,11
+2023-03,Aircraft,5
+2023-03,Armoured vehicles,102
+2023-03,Artillery,31
+2023-03,Drones,12
+2023-03,Other,19
+2023-03,Tanks,71
+2023-03,Transport,48
+2023-04,Air defence,12
+2023-04,Aircraft,4
+2023-04,Armoured vehicles,80
+2023-04,Artillery,21
+2023-04,Drones,14
+2023-04,Other,7
+2023-04,Tanks,35
+2023-04,Transport,30
+2023-05,Air defence,10
+2023-05,Aircraft,6
+2023-05,Armoured vehicles,90
+2023-05,Artillery,35
+2023-05,Drones,22
+2023-05,Other,13
+2023-05,Tanks,42
+2023-05,Transport,45
+2023-06,Air defence,15
+2023-06,Aircraft,5
+2023-06,Armoured vehicles,106
+2023-06,Artillery,38
+2023-06,Drones,15
+2023-06,Other,13
+2023-06,Tanks,61
+2023-06,Transport,59
+2023-07,Air defence,25
+2023-07,Aircraft,2
+2023-07,Armoured vehicles,122
+2023-07,Artillery,80
+2023-07,Drones,20
+2023-07,Other,9
+2023-07,Tanks,67
+2023-07,Transport,42
+2023-08,Air defence,22
+2023-08,Aircraft,5
+2023-08,Armoured vehicles,144
+2023-08,Artillery,59
+2023-08,Drones,15
+2023-08,Other,24
+2023-08,Tanks,69
+2023-08,Transport,42
+2023-09,Air defence,11
+2023-09,Aircraft,3
+2023-09,Armoured vehicles,114
+2023-09,Artillery,57
+2023-09,Drones,7
+2023-09,Other,10
+2023-09,Tanks,77
+2023-09,Transport,49
+2023-10,Air defence,7
+2023-10,Aircraft,9
+2023-10,Armoured vehicles,185
+2023-10,Artillery,58
+2023-10,Drones,11
+2023-10,Other,11
+2023-10,Tanks,98
+2023-10,Transport,53
+2023-11,Air defence,15
+2023-11,Armoured vehicles,114
+2023-11,Artillery,38
+2023-11,Drones,6
+2023-11,Other,13
+2023-11,Tanks,53
+2023-11,Transport,43
+2023-12,Air defence,10
+2023-12,Aircraft,1
+2023-12,Armoured vehicles,156
+2023-12,Artillery,33
+2023-12,Drones,5
+2023-12,Other,12
+2023-12,Tanks,71
+2023-12,Transport,28
+2024-01,Air defence,17
+2024-01,Aircraft,1
+2024-01,Armoured vehicles,172
+2024-01,Artillery,41
+2024-01,Drones,4
+2024-01,Other,16
+2024-01,Tanks,78
+2024-01,Transport,22
+2024-02,Air defence,9
+2024-02,Aircraft,3
+2024-02,Armoured vehicles,220
+2024-02,Artillery,25
+2024-02,Drones,15
+2024-02,Other,11
+2024-02,Tanks,91
+2024-02,Transport,41
+2024-03,Air defence,13
+2024-03,Aircraft,1
+2024-03,Armoured vehicles,278
+2024-03,Artillery,35
+2024-03,Drones,8
+2024-03,Other,20
+2024-03,Tanks,83
+2024-03,Transport,54
+2024-04,Air defence,11
+2024-04,Aircraft,3
+2024-04,Armoured vehicles,233
+2024-04,Artillery,30
+2024-04,Drones,19
+2024-04,Other,11
+2024-04,Tanks,106
+2024-04,Transport,66
+2024-05,Air defence,15
+2024-05,Aircraft,4
+2024-05,Armoured vehicles,277
+2024-05,Artillery,41
+2024-05,Drones,11
+2024-05,Other,26
+2024-05,Tanks,117
+2024-05,Transport,53
+2024-06,Air defence,17
+2024-06,Aircraft,1
+2024-06,Armoured vehicles,267
+2024-06,Artillery,31
+2024-06,Drones,12
+2024-06,Other,36
+2024-06,Tanks,116
+2024-06,Transport,73
+2024-07,Air defence,9
+2024-07,Aircraft,6
+2024-07,Armoured vehicles,209
+2024-07,Artillery,48
+2024-07,Drones,18
+2024-07,Other,10
+2024-07,Tanks,92
+2024-07,Transport,70
+2024-08,Air defence,11
+2024-08,Aircraft,5
+2024-08,Armoured vehicles,248
+2024-08,Artillery,52
+2024-08,Drones,38
+2024-08,Other,13
+2024-08,Tanks,69
+2024-08,Transport,108
+2024-09,Air defence,6
+2024-09,Aircraft,1
+2024-09,Armoured vehicles,284
+2024-09,Artillery,20
+2024-09,Drones,41
+2024-09,Other,12
+2024-09,Tanks,96
+2024-09,Transport,48
+2024-10,Air defence,15
+2024-10,Aircraft,1
+2024-10,Armoured vehicles,346
+2024-10,Artillery,35
+2024-10,Drones,36
+2024-10,Other,14
+2024-10,Tanks,83
+2024-10,Transport,56
+2024-11,Air defence,9
+2024-11,Armoured vehicles,358
+2024-11,Artillery,19
+2024-11,Drones,32
+2024-11,Other,7
+2024-11,Tanks,88
+2024-11,Transport,34
+2024-12,Air defence,4
+2024-12,Aircraft,1
+2024-12,Armoured vehicles,241
+2024-12,Artillery,7
+2024-12,Drones,19
+2024-12,Other,12
+2024-12,Tanks,57
+2024-12,Transport,24
+2025-01,Air defence,4
+2025-01,Armoured vehicles,205
+2025-01,Artillery,16
+2025-01,Drones,21
+2025-01,Other,12
+2025-01,Tanks,65
+2025-01,Transport,24
+2025-02,Air defence,10
+2025-02,Aircraft,1
+2025-02,Armoured vehicles,201
+2025-02,Artillery,27
+2025-02,Drones,27
+2025-02,Other,3
+2025-02,Tanks,73
+2025-02,Transport,63
+2025-03,Air defence,4
+2025-03,Aircraft,1
+2025-03,Armoured vehicles,219
+2025-03,Artillery,25
+2025-03,Drones,38
+2025-03,Other,15
+2025-03,Tanks,70
+2025-03,Transport,36
+2025-04,Air defence,10
+2025-04,Aircraft,1
+2025-04,Armoured vehicles,211
+2025-04,Artillery,19
+2025-04,Drones,39
+2025-04,Other,17
+2025-04,Tanks,67
+2025-04,Transport,62
+2025-05,Air defence,10
+2025-05,Aircraft,2
+2025-05,Armoured vehicles,112
+2025-05,Artillery,30
+2025-05,Drones,32
+2025-05,Other,11
+2025-05,Tanks,33
+2025-05,Transport,56
+2025-06,Air defence,4
+2025-06,Aircraft,15
+2025-06,Armoured vehicles,74
+2025-06,Artillery,22
+2025-06,Drones,10
+2025-06,Other,10
+2025-06,Tanks,31
+2025-06,Transport,54
+2025-07,Air defence,5
+2025-07,Armoured vehicles,55
+2025-07,Artillery,30
+2025-07,Drones,16
+2025-07,Other,12
+2025-07,Tanks,31
+2025-07,Transport,41
+2025-08,Air defence,3
+2025-08,Aircraft,1
+2025-08,Armoured vehicles,89
+2025-08,Artillery,37
+2025-08,Drones,16
+2025-08,Other,12
+2025-08,Tanks,41
+2025-08,Transport,68
+2025-09,Air defence,5
+2025-09,Aircraft,3
+2025-09,Armoured vehicles,35
+2025-09,Artillery,19
+2025-09,Drones,18
+2025-09,Other,4
+2025-09,Tanks,28
+2025-09,Transport,93
+2025-10,Air defence,7
+2025-10,Armoured vehicles,126
+2025-10,Artillery,10
+2025-10,Drones,5
+2025-10,Other,10
+2025-10,Tanks,28
+2025-10,Transport,50
+2025-11,Air defence,4
+2025-11,Armoured vehicles,63
+2025-11,Artillery,9
+2025-11,Drones,2
+2025-11,Other,14
+2025-11,Tanks,31
+2025-11,Transport,48
+2025-12,Air defence,13
+2025-12,Aircraft,1
+2025-12,Armoured vehicles,68
+2025-12,Artillery,16
+2025-12,Drones,6
+2025-12,Other,26
+2025-12,Tanks,39
+2025-12,Transport,61
+2026-01,Air defence,3
+2026-01,Armoured vehicles,17
+2026-01,Artillery,8
+2026-01,Drones,3
+2026-01,Other,18
+2026-01,Tanks,17
+2026-01,Transport,34
+2026-02,Air defence,3
+2026-02,Armoured vehicles,19
+2026-02,Artillery,19
+2026-02,Drones,1
+2026-02,Other,9
+2026-02,Tanks,10
+2026-02,Transport,38
+2026-03,Air defence,15
+2026-03,Aircraft,3
+2026-03,Armoured vehicles,51
+2026-03,Artillery,19
+2026-03,Other,13
+2026-03,Tanks,15
+2026-03,Transport,66
+2026-04,Air defence,5
+2026-04,Armoured vehicles,17
+2026-04,Artillery,13
+2026-04,Drones,2
+2026-04,Other,10
+2026-04,Tanks,12
+2026-04,Transport,44
+2026-05,Air defence,10
+2026-05,Aircraft,1
+2026-05,Armoured vehicles,22
+2026-05,Artillery,28
+2026-05,Drones,1
+2026-05,Other,12
+2026-05,Tanks,5
+2026-05,Transport,92
+2026-06,Air defence,1
+2026-06,Aircraft,1
+2026-06,Armoured vehicles,15
+2026-06,Artillery,44
+2026-06,Drones,4
+2026-06,Other,5
+2026-06,Tanks,10
+2026-06,Transport,97
+2026-07,Air defence,6
+2026-07,Aircraft,2
+2026-07,Armoured vehicles,11
+2026-07,Artillery,25
+2026-07,Drones,3
+2026-07,Other,6
+2026-07,Tanks,15
+2026-07,Transport,82
+2026-08,Air defence,8
+2026-08,Armoured vehicles,12
+2026-08,Artillery,22
+2026-08,Drones,9
+2026-08,Other,8
+2026-08,Tanks,9
+2026-08,Transport,56
+2026-09,Air defence,8
+2026-09,Aircraft,7
+2026-09,Armoured vehicles,13
+2026-09,Artillery,21
+2026-09,Drones,1
+2026-09,Other,6
+2026-09,Tanks,9
+2026-09,Transport,37
+2026-10,Air defence,1
+2026-10,Aircraft,8
+2026-10,Armoured vehicles,7
+2026-10,Artillery,15
+2026-10,Other,2
+2026-10,Tanks,1
+2026-10,Transport,45
