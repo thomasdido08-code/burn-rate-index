@@ -53,9 +53,11 @@ Step-by-step monthly procedure: which ISIS figures to take, files to edit, two c
 
 Served locally: the hero shows October 2026 (813.5K, −6%, 97.4K EU-owned); every window label reads "Jan 2025 to Oct 2026"; the launches chart has 22 months of bars; the comparison text shows 874×; no console errors.
 
-## 6. DECISION NEEDED: the "~874×" comparison
+## 6. The "~874×" comparison: option B applied
 
-I have **not** changed the headline wording. It is the easiest line to attack, for three reasons:
+**Decided 25 November 2026: option B.** The README headline, the dashboard and `build.py` now give the two totals side by side, with the "How to read this comparison" paragraph. The 874 ratio stays in `headline.json` as data and is mentioned in METHODOLOGY.md, but no longer leads. No figure changed.
+
+The options as they were put: It is the easiest line to attack, for three reasons:
 
 1. **Different kinds of thing.** Drones are consumables built to be used up; tanks and jammers are platforms that last. Comparing one with the other is close to comparing ammunition with rifles.
 2. **The denominator is small by construction.** Only 14 platform types have GUR teardowns. They account for **287 of the 4,706 losses** documented in the same months (6%). The more types GUR tears down, the smaller the multiplier gets.
@@ -78,8 +80,7 @@ C is vivid but stacks two comparisons and invites the same critique as the multi
 
 - *Sceptic (on any option): "So losses don't matter?"* → They matter for Russia's armour, which it replaces mostly from storage. They don't drive its demand for *new* foreign components; what it fires does, and that's what the index measures.
 
-Tell me A, B or C (or edit the wording) and I'll apply it to README, the dashboard text, build.py's headline and METHODOLOGY.md together.
 
 ## Ready to go public?
 
-The repo is already public with GitHub Pages. This branch is ready to merge once you choose the comparison wording.
+The repo is already public with GitHub Pages. This branch is ready to merge.

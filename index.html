@@ -169,7 +169,7 @@
 <div class="at">
   <header class="at-head" id="top">
     <h1>Burn Rate Index</h1>
-    <p class="at-take">Russia replaces lost armour mostly by pulling Soviet-era vehicles out of storage, and that stock is running out: <b data-draw="num" data-source="storage" data-field="remaining" data-where="category=Tanks&amp;date=2026-06">—</b> of <b data-draw="num" data-source="storage" data-field="prewar" data-where="category=Tanks&amp;date=2026-06">—</b> pre-war tanks were left in June 2026, <b data-draw="num" data-source="storage" data-field="restorable" data-where="category=Tanks&amp;date=2026-06">—</b> of them judged restorable. Refurbishment reuses most of a vehicle; a drone has to be built from new components every time: from <span data-draw="lbl" data-source="win" data-field="label" data-where="metric=long">January 2025 to the latest month</span>, Shahed-type launches carried an estimated <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=drone_mid">—</b> foreign component records, <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_mid">—</b> of them from EU-owned firms. That is about <b data-draw="x" data-source="totals" data-field="value" data-where="metric=ratio">—</b> times the records in every matched platform Russia lost over the same months, even if each one were rebuilt new.</p>
+    <p class="at-take">Russia replaces lost armour mostly by pulling Soviet-era vehicles out of storage, and that stock is running out: <b data-draw="num" data-source="storage" data-field="remaining" data-where="category=Tanks&amp;date=2026-06">—</b> of <b data-draw="num" data-source="storage" data-field="prewar" data-where="category=Tanks&amp;date=2026-06">—</b> pre-war tanks were left in June 2026, <b data-draw="num" data-source="storage" data-field="restorable" data-where="category=Tanks&amp;date=2026-06">—</b> of them judged restorable. Refurbishment reuses most of a vehicle; a drone has to be built from new components every time: from <span data-draw="lbl" data-source="win" data-field="label" data-where="metric=long">January 2025 to the latest month</span>, Shahed-type launches carried an estimated <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=drone_mid">—</b> foreign component records, <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_mid">—</b> of them from EU-owned firms. The <b data-draw="num" data-source="totals" data-field="value" data-where="metric=lost_units">—</b> lost platforms that GUR has torn down contained about <b data-draw="num" data-source="totals" data-field="value" data-where="metric=lost_records_round">—</b>, even if each one were rebuilt new.</p>
   </header>
 
   <section class="at-hero" id="index" aria-label="Burn Rate Index">
@@ -251,6 +251,7 @@
   <section class="at-sec" id="window">
     <h2>Firing vs losing, over the same months</h2>
     <p>Both sides of the comparison cover <span data-draw="lbl" data-source="win" data-field="label" data-where="metric=long">January 2025 to the latest month</span>. Matched losses are counted by loss date over exactly the same months.</p>
+    <p><b>How to read this comparison.</b> Both sides count GUR component records, not chips or money. The drone side covers every Shahed-type drone launched; the loss side covers only the 14 platform types GUR has taken apart, <b data-draw="pct" data-source="totals" data-field="value" data-where="metric=lost_share">—</b> of the <b data-draw="num" data-source="totals" data-field="value" data-where="metric=losses_window">—</b> losses WarSpotting documented in the same months, and counts each as if rebuilt new, although most lost armour is replaced from storage. The comparison shows where Russia's recurring demand for foreign parts comes from: weapons it fires and must rebuild every time, rather than equipment it loses.</p>
     <div class="at-grid">
       <div class="at-card" id="scale">
         <h3>Foreign component records, <span data-draw="lbl" data-source="win" data-field="label" data-where="metric=short">Jan 2025 to latest month</span></h3>
@@ -368,6 +369,8 @@
       const sum = (k) => monthly.reduce((s, r) => s + r[k], 0);
       const lostRecords = linked_calc.reduce((s, r) => s + r.records_lost, 0);
       const lostEu = linked_calc.reduce((s, r) => s + r.eu_lost, 0);
+      const lostUnits = linked_calc.reduce((s, r) => s + r.lost_window, 0);
+      const lossesWindow = losses.filter((r) => r.month >= '2025-01' && r.month <= monthly[monthly.length - 1].month).reduce((s, r) => s + Number(r.losses), 0);
       return [
         {metric: 'launches', value: sum('launched')},
         {metric: 'strike_launched', value: sum('strike')},
@@ -377,8 +380,11 @@
         {metric: 'eu_low', value: sum('eu_low')},
         {metric: 'eu_mid', value: Math.round(sum('eu_mid'))},
         {metric: 'eu_high', value: sum('eu_high')},
-        {metric: 'losses_window', value: losses.filter((r) => r.month >= '2025-01' && r.month <= monthly[monthly.length - 1].month).reduce((s, r) => s + Number(r.losses), 0)},
+        {metric: 'losses_window', value: lossesWindow},
         {metric: 'lost_records', value: lostRecords},
+        {metric: 'lost_records_round', value: Math.round(lostRecords / 1000) * 1000},
+        {metric: 'lost_units', value: lostUnits},
+        {metric: 'lost_share', value: lostUnits / lossesWindow},
         {metric: 'lost_eu', value: lostEu},
         {metric: 'ratio', value: Math.round(sum('mid') / lostRecords)},
       ];
