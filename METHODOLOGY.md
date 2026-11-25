@@ -36,7 +36,11 @@ GUR's War & Sanctions database lists each component found in a teardown as one r
 | Jan–Aug 2025 | 59% | ISIS 2025 full-year share, from official data (32,200 strike drones of 54,538 launches) |
 | Sep 2025 – May 2026 | 58–66%, month by month | ISIS monthly figures |
 | Jun 2026 | 64% | ISIS estimate |
-| Jul–Sep 2026 | 64% | ISIS January–June 2026 average, carried forward. **This is this project's assumption.** |
+| Jul–Sep 2026 | 71%, 74%, 79% | ISIS monthly, from its report of 10 November 2026 ([link](https://isis-online.org/isis-reports/monthly-analysis-of-russian-shahed-136-deployment-against-ukraine-updated), retrieved 25 November 2026). These replace the 64% carried forward in the first version. |
+
+If ISIS has not yet published a share for the latest month, the last published ISIS monthly share is carried forward and marked in `strike_share.csv`. That is this project's assumption, not ISIS's.
+
+**Jet-powered drones.** Since mid-2026 a growing part of the strike share is jet-powered Geran-3s. ISIS counts them as strike drones, and the index applies the Shahed-136's 155 foreign records to every strike drone. GUR's Geran-3 teardown shows 44. So the rise in the strike share pushes recent months up more than the parts inside the jets justify. ISIS does not publish a full monthly split of jets from piston Shaheds, so the index does not split them yet; see section 6.
 
 The non-strike share includes Garpiya-A1 strike drones and Italmas decoys as well as Gerbera decoys, because official reporting does not separate them. Treating all of them as Gerbera undercounts components, so the central estimate is, if anything, low.
 
@@ -73,7 +77,9 @@ Ukrainian intelligence estimates of strike-drone production: about 2,700 Shahed-
 - **Not a trade measure.** These are components embedded in weapons Russia used or lost, not import volumes.
 - **Not a count of chips.** See "What a component record is" above.
 - **Not a measure of where parts were made.** Attribution is by the manufacturer's parent group.
+- **Not adjusted for jet-powered Geran-3s.** They are counted with the Shahed-136 profile (155 foreign records) although GUR's Geran-3 teardown has 44. This overstates months with many jets.
 
 ## Change log
 
 - **November 2026**: first public version.
+- **25 November 2026**: July–September 2026 strike shares changed from the carried-forward 64% to ISIS's published monthly figures (71%, 74%, 79%). September 2026 rose from 738,096 to 865,331 foreign records; January 2025–September 2026 from 11.50M to 11.73M; the drones-to-losses ratio from 792 to 809.
