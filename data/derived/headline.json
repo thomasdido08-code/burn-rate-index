@@ -14,8 +14,8 @@
   "index_window_low": 3306609,
   "index_window_high": 17673255,
   "eu_window_central": 1564242,
-  "documented_losses_window": 4678,
-  "matched_lost_records": 14511,
-  "matched_lost_eu": 2473,
-  "drones_vs_matched_losses": 865
+  "documented_losses_window": 4706,
+  "matched_lost_records": 14352,
+  "matched_lost_eu": 2401,
+  "drones_vs_matched_losses": 874
 }
