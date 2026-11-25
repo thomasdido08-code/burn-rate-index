@@ -21,7 +21,7 @@ OUT = os.path.join(ROOT, "data", "derived")
 
 SHAHED = "Shahed-136 / Geran-2"
 GERBERA = "Gerbera (decoy)"
-WINDOW = ("2025-01", "2026-09")  # launches window; matched losses use whole years 2025-2026
+WINDOW_START = "2025-01"  # window runs from here to the latest month in launches.csv
 MONTHS = ["January", "February", "March", "April", "May", "June", "July",
           "August", "September", "October", "November", "December"]
 
@@ -86,7 +86,8 @@ def main():
         w.writeheader()
         w.writerows(monthly)
 
-    win = [r for r in monthly if WINDOW[0] <= r["month"] <= WINDOW[1]]
+    window = (WINDOW_START, monthly[-1]["month"])
+    win = [r for r in monthly if window[0] <= r["month"] <= window[1]]
     tot = lambda k: sum(r[k] for r in win)
     lost_records = sum((num(r["l2025"]) + num(r["l2026"])) * foreign(profiles[r["family"]]) for r in matched)
     lost_eu = sum((num(r["l2025"]) + num(r["l2026"])) * num(profiles[r["family"]]["eu"]) for r in matched)
@@ -100,14 +101,15 @@ def main():
         "previous_label": label(previous["month"]),
         "change_vs_previous": round((latest["index_central"] - previous["index_central"]) / previous["index_central"], 4),
         "eu_latest": latest["eu_central"],
-        "window": f"{WINDOW[0]} to {WINDOW[1]}",
+        "window": f"{window[0]} to {window[1]}",
+        "window_label": f"{label(window[0])} to {label(window[1])}",
         "launches_window": tot("launched"),
         "strike_window": tot("strike_est"),
         "index_window_central": tot("index_central"),
         "index_window_low": tot("index_low"),
         "index_window_high": tot("index_high"),
         "eu_window_central": tot("eu_central"),
-        "documented_losses_window": int(sum(num(r["losses"]) for r in losses if WINDOW[0] <= r["month"] <= WINDOW[1])),
+        "documented_losses_window": int(sum(num(r["losses"]) for r in losses if window[0] <= r["month"] <= window[1])),
         "matched_lost_records": int(lost_records),
         "matched_lost_eu": int(lost_eu),
         "drones_vs_matched_losses": round(tot("index_central") / lost_records),
@@ -136,7 +138,7 @@ def update_readme(h):
         f"**{h['latest_label']}: {h['index_latest']:,} foreign component records fired** "
         f"({sign}{abs(h['change_vs_previous']):.0%} on {h['previous_label']}), "
         f"{h['eu_latest']:,} of them from EU-owned firms.\n\n"
-        f"From January 2025 to September 2026, Shahed-type launches carried an estimated "
+        f"From {h['window_label']}, Shahed-type launches carried an estimated "
         f"{compact(h['index_window_central'])} foreign component records "
         f"(range {compact(h['index_window_low'])} to {compact(h['index_window_high'])}), "
         f"{compact(h['eu_window_central'])} from EU-owned firms: about "
