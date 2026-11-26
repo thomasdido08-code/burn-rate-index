@@ -36,7 +36,15 @@ GUR's War & Sanctions database lists each component found in a teardown as one r
 | Jan–Aug 2025 | 59% | ISIS 2025 full-year share, from official data (32,200 strike drones of 54,538 launches) |
 | Sep 2025 – May 2026 | 58–66%, month by month | ISIS monthly figures |
 | Jun 2026 | 64% | ISIS estimate |
-| Jul–Sep 2026 | 64% | ISIS January–June 2026 average, carried forward. **This is this project's assumption.** |
+| Jul–Oct 2026 | 71%, 74%, 79%, 82% | ISIS monthly, from its report of 10 November 2026 ([link](https://isis-online.org/isis-reports/monthly-analysis-of-russian-shahed-136-deployment-against-ukraine-updated), retrieved 25 November 2026). July–September replace the 64% carried forward in the first version. |
+
+If ISIS has not yet published a share for the latest month, the last published ISIS monthly share is carried forward and marked in `strike_share.csv`. That is this project's assumption, not ISIS's.
+
+**Jet-powered drones.** Since mid-2026 a growing part of the strike share is jet-powered Geran-3s. ISIS counts them as strike drones, and the index applies the Shahed-136's 155 foreign records to every strike drone. GUR's Geran-3 teardown shows 44. So the rise in the strike share pushes recent months up more than the parts inside the jets justify. ISIS does not publish a full monthly split of jets from piston Shaheds, so the index does not split them yet; see section 6. For October 2026 alone, ISIS directly identifies at least 2,412 jets in the daily reports. Counting those 2,412 with the Geran-3 profile instead would lower October from 813,503 to 545,771 foreign records (−33%). That is a sensitivity figure, not the index.
+
+### Launches in recent months
+
+From July 2026, ISIS calls its monthly total a "reporting baseline": the sum of the Air Force's morning reports and the separately published daytime reports, which do not cover every day. For October 2026 the baseline is 6,148. The General Staff separately reported 6,473 genuine Shahed/Geran launches for October (decoys excluded), and ISIS warns that the two counts are different populations and must not be mixed. The index keeps the ISIS baseline for consistency with earlier months, so recent months are, if anything, low.
 
 The non-strike share includes Garpiya-A1 strike drones and Italmas decoys as well as Gerbera decoys, because official reporting does not separate them. Treating all of them as Gerbera undercounts components, so the central estimate is, if anything, low.
 
@@ -44,10 +52,10 @@ Since May 2026, Ukrainian official reports no longer consistently separate strik
 
 ## 2. Losses and the same-window comparison
 
-- **All losses** (`losses_monthly.csv`): every Russian loss in WarSpotting's database, retrieved on 1 November 2026, excluding damaged vehicles, grouped into eight categories. Each loss is confirmed by a photo or video, so this is a floor. Recent months are undercounted because footage surfaces late.
-- **Matched losses** (`matched_losses.csv`): the 14 WarSpotting platform types that GUR has torn down, with losses per year. Models are matched to GUR weapon families by name. "T-72" means T-72B3 variants only; "R-330 jammers" means the R-330BMV.
+- **All losses** (`losses_monthly.csv`): every Russian loss in WarSpotting's database, retrieved through its API on 25 November 2026 (`scripts/fetch_warspotting.py`; snapshot in `data/raw/warspotting/`), excluding damaged vehicles, grouped into eight categories by `scripts/aggregate_losses.py` (armoured vehicles: infantry fighting and mobility vehicles; artillery: towed, self-propelled and rocket; air defence: anti-aircraft systems, radars and jammers; aircraft: aeroplanes and helicopters). Each loss is confirmed by a photo or video, so this is a floor. Recent months are undercounted because footage surfaces late.
+- **Matched losses** (`matched_losses.csv`): the 14 WarSpotting platform types that GUR has torn down, with losses per year. Models are matched to GUR weapon families by name. "T-72" means T-72B3 variants only; "R-330 jammers" means the R-330BMV; "Fenix" means the Feniks reconnaissance drone only (the first version also counted three KamAZ-53949 "Feniks" armoured trucks by mistake).
 
-The headline comparison covers January 2025 to September 2026 on both sides. Matched losses are available by calendar year only, so that side includes October 2026, which slightly favours losses.
+The headline comparison covers January 2025 to the latest month on both sides: matched losses are counted by loss date up to the end of that month. The matched platforms are a small part of what Russia loses: 287 of the 4,706 losses documented from January 2025 to October 2026 (6%). For that reason the headline gives the two totals side by side (records fired in drones, records in matched lost platforms) rather than a ratio between them: the ratio (874 for January 2025–October 2026, in `headline.json`) depends on how many platform types GUR has torn down, and would fall as it publishes more.
 
 Matched-loss records are calculated as if every lost unit were replaced with a new build. That is an upper bound: most lost armour has been replaced from storage, which reuses most of the vehicle.
 
@@ -73,7 +81,12 @@ Ukrainian intelligence estimates of strike-drone production: about 2,700 Shahed-
 - **Not a trade measure.** These are components embedded in weapons Russia used or lost, not import volumes.
 - **Not a count of chips.** See "What a component record is" above.
 - **Not a measure of where parts were made.** Attribution is by the manufacturer's parent group.
+- **Not adjusted for jet-powered Geran-3s.** They are counted with the Shahed-136 profile (155 foreign records) although GUR's Geran-3 teardown has 44. This overstates months with many jets.
 
 ## Change log
 
 - **November 2026**: first public version.
+- **25 November 2026**: July–September 2026 strike shares changed from the carried-forward 64% to ISIS's published monthly figures (71%, 74%, 79%).
+- **25 November 2026**: October 2026 added (6,148 launches, 82% strike share, ISIS report of 10 November 2026). October index: 813,503 foreign records, −6% on September.
+- **25 November 2026**: WarSpotting losses retrieved again (25 November instead of 1 November), through the new download and aggregation scripts. Matched losses are now counted by loss date up to the end of the latest month, not by calendar year. Feniks armoured trucks removed from the Fenix drone family. Records in matched losses January 2025–October 2026: 14,511 → 14,352; drones-to-matched-losses ratio 865 → 874. Documented losses in the window: 4,678 → 4,706.
+- **25 November 2026**: headline wording. The drones-vs-losses comparison is now stated as two totals with a "How to read this comparison" note, instead of "about 874 times". No figure changed. September 2026 rose from 738,096 to 865,331 foreign records; January 2025–September 2026 from 11.50M to 11.73M; the drones-to-losses ratio from 792 to 809.

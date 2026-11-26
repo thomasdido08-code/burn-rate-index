@@ -17,6 +17,7 @@ month,launched,strike_share,strike_share_basis,strike_est,other_est,index_centra
 2026-04,6583,0.66,ISIS monthly,4345,2238,738349,190907,1020365,91635,39498,118494,
 2026-05,8161,0.63,ISIS monthly,5141,3020,884489,236669,1264955,110663,48966,146898,
 2026-06,5749,0.64,ISIS estimate,3679,2070,630320,166721,891095,78646,34494,103482,
-2026-07,4981,0.64,ISIS Jan-Jun 2026 average carried forward,3188,1793,546117,144449,772055,68140,29886,89658,reporting baseline
-2026-08,5166,0.64,ISIS Jan-Jun 2026 average carried forward,3306,1860,566400,149814,800730,70671,30996,92988,
-2026-09,6732,0.64,ISIS Jan-Jun 2026 average carried forward,4308,2424,738096,195228,1043460,92094,40392,121176,reporting baseline; ISIS working estimate 7400-7700
+2026-07,4981,0.71,ISIS monthly (report of 10 Nov 2026; retrieved 25 Nov 2026),3537,1444,590049,144449,772055,72324,29886,89658,reporting baseline
+2026-08,5166,0.74,ISIS monthly (report of 10 Nov 2026; retrieved 25 Nov 2026),3823,1343,631492,149814,800730,76870,30996,92988,
+2026-09,6732,0.79,ISIS monthly (report of 10 Nov 2026; retrieved 25 Nov 2026),5318,1414,865331,195228,1043460,104211,40392,121176,reporting baseline; ISIS working estimate 7400-7700
+2026-10,6148,0.82,ISIS monthly (report of 10 Nov 2026; retrieved 25 Nov 2026),5041,1107,813503,178292,952940,97384,36888,110664,reporting baseline (ISIS report of 10 Nov 2026; official full-month count of genuine Shahed/Geran launches: 6473)

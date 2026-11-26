@@ -21,7 +21,7 @@ OUT = os.path.join(ROOT, "data", "derived")
 
 SHAHED = "Shahed-136 / Geran-2"
 GERBERA = "Gerbera (decoy)"
-WINDOW = ("2025-01", "2026-09")  # launches window; matched losses use whole years 2025-2026
+WINDOW_START = "2025-01"  # window runs from here to the latest month in launches.csv
 MONTHS = ["January", "February", "March", "April", "May", "June", "July",
           "August", "September", "October", "November", "December"]
 
@@ -86,10 +86,15 @@ def main():
         w.writeheader()
         w.writerows(monthly)
 
-    win = [r for r in monthly if WINDOW[0] <= r["month"] <= WINDOW[1]]
+    window = (WINDOW_START, monthly[-1]["month"])
+    win = [r for r in monthly if window[0] <= r["month"] <= window[1]]
     tot = lambda k: sum(r[k] for r in win)
-    lost_records = sum((num(r["l2025"]) + num(r["l2026"])) * foreign(profiles[r["family"]]) for r in matched)
-    lost_eu = sum((num(r["l2025"]) + num(r["l2026"])) * num(profiles[r["family"]]["eu"]) for r in matched)
+    # matched_losses.csv is counted up to the end of the latest month (scripts/aggregate_losses.py),
+    # so summing the window's calendar years covers exactly the window.
+    years = [f"l{y}" for y in range(int(window[0][:4]), int(window[1][:4]) + 1)]
+    lost_units = {r["family"]: sum(num(r.get(y)) for y in years) for r in matched}
+    lost_records = sum(n * foreign(profiles[f]) for f, n in lost_units.items())
+    lost_eu = sum(n * num(profiles[f]["eu"]) for f, n in lost_units.items())
     latest, previous = monthly[-1], monthly[-2]
 
     headline = {
@@ -100,14 +105,16 @@ def main():
         "previous_label": label(previous["month"]),
         "change_vs_previous": round((latest["index_central"] - previous["index_central"]) / previous["index_central"], 4),
         "eu_latest": latest["eu_central"],
-        "window": f"{WINDOW[0]} to {WINDOW[1]}",
+        "window": f"{window[0]} to {window[1]}",
+        "window_label": f"{label(window[0])} to {label(window[1])}",
         "launches_window": tot("launched"),
         "strike_window": tot("strike_est"),
         "index_window_central": tot("index_central"),
         "index_window_low": tot("index_low"),
         "index_window_high": tot("index_high"),
         "eu_window_central": tot("eu_central"),
-        "documented_losses_window": int(sum(num(r["losses"]) for r in losses if WINDOW[0] <= r["month"] <= WINDOW[1])),
+        "documented_losses_window": int(sum(num(r["losses"]) for r in losses if window[0] <= r["month"] <= window[1])),
+        "matched_platforms_lost_window": int(sum(lost_units.values())),
         "matched_lost_records": int(lost_records),
         "matched_lost_eu": int(lost_eu),
         "drones_vs_matched_losses": round(tot("index_central") / lost_records),
@@ -136,12 +143,19 @@ def update_readme(h):
         f"**{h['latest_label']}: {h['index_latest']:,} foreign component records fired** "
         f"({sign}{abs(h['change_vs_previous']):.0%} on {h['previous_label']}), "
         f"{h['eu_latest']:,} of them from EU-owned firms.\n\n"
-        f"From January 2025 to September 2026, Shahed-type launches carried an estimated "
+        f"From {h['window_label']}, Shahed-type launches carried an estimated "
         f"{compact(h['index_window_central'])} foreign component records "
         f"(range {compact(h['index_window_low'])} to {compact(h['index_window_high'])}), "
-        f"{compact(h['eu_window_central'])} from EU-owned firms: about "
-        f"{h['drones_vs_matched_losses']:,} times the records in every matched platform Russia lost "
-        f"over the same period, even if each were rebuilt new.\n"
+        f"{compact(h['eu_window_central'])} from EU-owned firms. "
+        f"The {h['matched_platforms_lost_window']:,} lost platforms that GUR has torn down contained about "
+        f"{round(h['matched_lost_records'], -3):,}, even if each were rebuilt new.\n\n"
+        f"*How to read this comparison.* Both sides count GUR component records, not chips or money. "
+        f"The drone side covers every Shahed-type drone launched; the loss side covers only the 14 platform "
+        f"types GUR has taken apart, {h['matched_platforms_lost_window'] / h['documented_losses_window']:.0%} "
+        f"of the {h['documented_losses_window']:,} losses WarSpotting documented in the same months, and counts "
+        f"each as if rebuilt new, although most lost armour is replaced from storage. The comparison shows where "
+        f"Russia's recurring demand for foreign parts comes from: weapons it fires and must rebuild every time, "
+        f"rather than equipment it loses.\n"
         "<!-- HEADLINE:END -->"
     )
     text = open(path, encoding="utf-8").read()

@@ -1,11 +1,11 @@
 month,category,losses
 2022-02,Air defence,19
 2022-02,Aircraft,12
-2022-02,Armoured vehicles,116
+2022-02,Armoured vehicles,113
 2022-02,Artillery,10
 2022-02,Drones,1
 2022-02,Other,78
-2022-02,Tanks,54
+2022-02,Tanks,55
 2022-02,Transport,130
 2022-03,Air defence,55
 2022-03,Aircraft,44
@@ -33,8 +33,8 @@ month,category,losses
 2022-05,Transport,135
 2022-06,Air defence,3
 2022-06,Aircraft,7
-2022-06,Armoured vehicles,142
-2022-06,Artillery,39
+2022-06,Armoured vehicles,144
+2022-06,Artillery,41
 2022-06,Drones,18
 2022-06,Other,29
 2022-06,Tanks,53
@@ -53,7 +53,7 @@ month,category,losses
 2022-08,Artillery,27
 2022-08,Drones,22
 2022-08,Other,19
-2022-08,Tanks,50
+2022-08,Tanks,51
 2022-08,Transport,74
 2022-09,Air defence,27
 2022-09,Aircraft,9
@@ -61,7 +61,7 @@ month,category,losses
 2022-09,Artillery,100
 2022-09,Drones,11
 2022-09,Other,133
-2022-09,Tanks,211
+2022-09,Tanks,210
 2022-09,Transport,256
 2022-10,Air defence,23
 2022-10,Aircraft,12
@@ -72,15 +72,15 @@ month,category,losses
 2022-10,Tanks,138
 2022-10,Transport,167
 2022-11,Air defence,15
-2022-11,Armoured vehicles,250
+2022-11,Armoured vehicles,251
 2022-11,Artillery,75
 2022-11,Drones,18
 2022-11,Other,61
-2022-11,Tanks,117
+2022-11,Tanks,116
 2022-11,Transport,192
 2022-12,Air defence,7
 2022-12,Aircraft,5
-2022-12,Armoured vehicles,90
+2022-12,Armoured vehicles,88
 2022-12,Artillery,22
 2022-12,Drones,11
 2022-12,Other,12
@@ -88,7 +88,7 @@ month,category,losses
 2022-12,Transport,58
 2023-01,Air defence,6
 2023-01,Aircraft,1
-2023-01,Armoured vehicles,77
+2023-01,Armoured vehicles,76
 2023-01,Artillery,30
 2023-01,Drones,8
 2023-01,Other,11
@@ -136,7 +136,7 @@ month,category,losses
 2023-06,Transport,59
 2023-07,Air defence,25
 2023-07,Aircraft,2
-2023-07,Armoured vehicles,122
+2023-07,Armoured vehicles,123
 2023-07,Artillery,80
 2023-07,Drones,20
 2023-07,Other,9
@@ -171,7 +171,7 @@ month,category,losses
 2023-11,Artillery,38
 2023-11,Drones,6
 2023-11,Other,13
-2023-11,Tanks,53
+2023-11,Tanks,52
 2023-11,Transport,43
 2023-12,Air defence,10
 2023-12,Aircraft,1
@@ -183,7 +183,7 @@ month,category,losses
 2023-12,Transport,28
 2024-01,Air defence,17
 2024-01,Aircraft,1
-2024-01,Armoured vehicles,172
+2024-01,Armoured vehicles,171
 2024-01,Artillery,41
 2024-01,Drones,4
 2024-01,Other,16
@@ -191,15 +191,15 @@ month,category,losses
 2024-01,Transport,22
 2024-02,Air defence,9
 2024-02,Aircraft,3
-2024-02,Armoured vehicles,220
+2024-02,Armoured vehicles,219
 2024-02,Artillery,25
 2024-02,Drones,15
-2024-02,Other,11
+2024-02,Other,12
 2024-02,Tanks,91
 2024-02,Transport,41
 2024-03,Air defence,13
 2024-03,Aircraft,1
-2024-03,Armoured vehicles,278
+2024-03,Armoured vehicles,279
 2024-03,Artillery,35
 2024-03,Drones,8
 2024-03,Other,20
@@ -239,34 +239,34 @@ month,category,losses
 2024-07,Transport,70
 2024-08,Air defence,11
 2024-08,Aircraft,5
-2024-08,Armoured vehicles,248
+2024-08,Armoured vehicles,249
 2024-08,Artillery,52
 2024-08,Drones,38
-2024-08,Other,13
+2024-08,Other,14
 2024-08,Tanks,69
-2024-08,Transport,108
+2024-08,Transport,109
 2024-09,Air defence,6
 2024-09,Aircraft,1
-2024-09,Armoured vehicles,284
+2024-09,Armoured vehicles,283
 2024-09,Artillery,20
 2024-09,Drones,41
 2024-09,Other,12
 2024-09,Tanks,96
-2024-09,Transport,48
+2024-09,Transport,47
 2024-10,Air defence,15
 2024-10,Aircraft,1
 2024-10,Armoured vehicles,346
 2024-10,Artillery,35
 2024-10,Drones,36
 2024-10,Other,14
-2024-10,Tanks,83
+2024-10,Tanks,84
 2024-10,Transport,56
 2024-11,Air defence,9
-2024-11,Armoured vehicles,358
+2024-11,Armoured vehicles,357
 2024-11,Artillery,19
 2024-11,Drones,32
 2024-11,Other,7
-2024-11,Tanks,88
+2024-11,Tanks,89
 2024-11,Transport,34
 2024-12,Air defence,4
 2024-12,Aircraft,1
@@ -277,7 +277,7 @@ month,category,losses
 2024-12,Tanks,57
 2024-12,Transport,24
 2025-01,Air defence,4
-2025-01,Armoured vehicles,205
+2025-01,Armoured vehicles,203
 2025-01,Artillery,16
 2025-01,Drones,21
 2025-01,Other,12
@@ -285,18 +285,18 @@ month,category,losses
 2025-01,Transport,24
 2025-02,Air defence,10
 2025-02,Aircraft,1
-2025-02,Armoured vehicles,201
+2025-02,Armoured vehicles,200
 2025-02,Artillery,27
 2025-02,Drones,27
-2025-02,Other,3
+2025-02,Other,4
 2025-02,Tanks,73
-2025-02,Transport,63
+2025-02,Transport,64
 2025-03,Air defence,4
 2025-03,Aircraft,1
 2025-03,Armoured vehicles,219
 2025-03,Artillery,25
 2025-03,Drones,38
-2025-03,Other,15
+2025-03,Other,14
 2025-03,Tanks,70
 2025-03,Transport,36
 2025-04,Air defence,10
@@ -306,7 +306,7 @@ month,category,losses
 2025-04,Drones,39
 2025-04,Other,17
 2025-04,Tanks,67
-2025-04,Transport,62
+2025-04,Transport,63
 2025-05,Air defence,10
 2025-05,Aircraft,2
 2025-05,Armoured vehicles,112
@@ -321,7 +321,7 @@ month,category,losses
 2025-06,Artillery,22
 2025-06,Drones,10
 2025-06,Other,10
-2025-06,Tanks,31
+2025-06,Tanks,30
 2025-06,Transport,54
 2025-07,Air defence,5
 2025-07,Armoured vehicles,55
@@ -332,12 +332,12 @@ month,category,losses
 2025-07,Transport,41
 2025-08,Air defence,3
 2025-08,Aircraft,1
-2025-08,Armoured vehicles,89
+2025-08,Armoured vehicles,88
 2025-08,Artillery,37
 2025-08,Drones,16
 2025-08,Other,12
 2025-08,Tanks,41
-2025-08,Transport,68
+2025-08,Transport,69
 2025-09,Air defence,5
 2025-09,Aircraft,3
 2025-09,Armoured vehicles,35
@@ -345,9 +345,9 @@ month,category,losses
 2025-09,Drones,18
 2025-09,Other,4
 2025-09,Tanks,28
-2025-09,Transport,93
+2025-09,Transport,94
 2025-10,Air defence,7
-2025-10,Armoured vehicles,126
+2025-10,Armoured vehicles,124
 2025-10,Artillery,10
 2025-10,Drones,5
 2025-10,Other,10
@@ -362,25 +362,26 @@ month,category,losses
 2025-11,Transport,48
 2025-12,Air defence,13
 2025-12,Aircraft,1
-2025-12,Armoured vehicles,68
+2025-12,Armoured vehicles,70
 2025-12,Artillery,16
 2025-12,Drones,6
-2025-12,Other,26
+2025-12,Other,27
 2025-12,Tanks,39
 2025-12,Transport,61
 2026-01,Air defence,3
+2026-01,Aircraft,1
 2026-01,Armoured vehicles,17
 2026-01,Artillery,8
 2026-01,Drones,3
 2026-01,Other,18
-2026-01,Tanks,17
+2026-01,Tanks,18
 2026-01,Transport,34
 2026-02,Air defence,3
 2026-02,Armoured vehicles,19
-2026-02,Artillery,19
+2026-02,Artillery,20
 2026-02,Drones,1
 2026-02,Other,9
-2026-02,Tanks,10
+2026-02,Tanks,11
 2026-02,Transport,38
 2026-03,Air defence,15
 2026-03,Aircraft,3
@@ -390,7 +391,7 @@ month,category,losses
 2026-03,Tanks,15
 2026-03,Transport,66
 2026-04,Air defence,5
-2026-04,Armoured vehicles,17
+2026-04,Armoured vehicles,19
 2026-04,Artillery,13
 2026-04,Drones,2
 2026-04,Other,10
@@ -422,7 +423,7 @@ month,category,losses
 2026-07,Transport,82
 2026-08,Air defence,8
 2026-08,Armoured vehicles,12
-2026-08,Artillery,22
+2026-08,Artillery,23
 2026-08,Drones,9
 2026-08,Other,8
 2026-08,Tanks,9
@@ -432,13 +433,13 @@ month,category,losses
 2026-09,Armoured vehicles,13
 2026-09,Artillery,21
 2026-09,Drones,1
-2026-09,Other,6
+2026-09,Other,7
 2026-09,Tanks,9
-2026-09,Transport,37
-2026-10,Air defence,1
+2026-09,Transport,39
+2026-10,Air defence,2
 2026-10,Aircraft,8
-2026-10,Armoured vehicles,7
-2026-10,Artillery,15
+2026-10,Armoured vehicles,9
+2026-10,Artillery,16
 2026-10,Other,2
-2026-10,Tanks,1
-2026-10,Transport,45
+2026-10,Tanks,2
+2026-10,Transport,58

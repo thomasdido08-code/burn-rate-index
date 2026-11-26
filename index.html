@@ -169,7 +169,7 @@
 <div class="at">
   <header class="at-head" id="top">
     <h1>Burn Rate Index</h1>
-    <p class="at-take">Russia replaces lost armour mostly by pulling Soviet-era vehicles out of storage, and that stock is running out: <b data-draw="num" data-source="storage" data-field="remaining" data-where="category=Tanks&amp;date=2026-06">—</b> of <b data-draw="num" data-source="storage" data-field="prewar" data-where="category=Tanks&amp;date=2026-06">—</b> pre-war tanks were left in June 2026, <b data-draw="num" data-source="storage" data-field="restorable" data-where="category=Tanks&amp;date=2026-06">—</b> of them judged restorable. Refurbishment reuses most of a vehicle; a drone has to be built from new components every time: from January 2025 to September 2026, Shahed-type launches carried an estimated <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=drone_mid">—</b> foreign component records, <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_mid">—</b> of them from EU-owned firms. That is about <b data-draw="x" data-source="totals" data-field="value" data-where="metric=ratio">—</b> times the records in every matched platform Russia lost over the same months, even if each one were rebuilt new.</p>
+    <p class="at-take">Russia replaces lost armour mostly by pulling Soviet-era vehicles out of storage, and that stock is running out: <b data-draw="num" data-source="storage" data-field="remaining" data-where="category=Tanks&amp;date=2026-06">—</b> of <b data-draw="num" data-source="storage" data-field="prewar" data-where="category=Tanks&amp;date=2026-06">—</b> pre-war tanks were left in June 2026, <b data-draw="num" data-source="storage" data-field="restorable" data-where="category=Tanks&amp;date=2026-06">—</b> of them judged restorable. Refurbishment reuses most of a vehicle; a drone has to be built from new components every time: from <span data-draw="lbl" data-source="win" data-field="label" data-where="metric=long">January 2025 to the latest month</span>, Shahed-type launches carried an estimated <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=drone_mid">—</b> foreign component records, <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_mid">—</b> of them from EU-owned firms. The <b data-draw="num" data-source="totals" data-field="value" data-where="metric=lost_units">—</b> lost platforms that GUR has torn down contained about <b data-draw="num" data-source="totals" data-field="value" data-where="metric=lost_records_round">—</b>, even if each one were rebuilt new.</p>
   </header>
 
   <section class="at-hero" id="index" aria-label="Burn Rate Index">
@@ -186,10 +186,10 @@
     <div class="at-tile hook">
       <span class="at-tile-l">EU-owned component records in Shahed-type launches</span>
       <span class="at-tile-n" data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_mid">—</span>
-      <span class="at-tile-s">Jan 2025 to Sep 2026, central estimate (range <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_low">—</b> to <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_high">—</b>). Counted by the parent group's home country, not where the part was made or how it reached Russia, usually through third countries.</span>
+      <span class="at-tile-s"><span data-draw="lbl" data-source="win" data-field="label" data-where="metric=short">Jan 2025 to latest month</span>, central estimate (range <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_low">—</b> to <b data-draw="cmp" data-source="totals" data-field="value" data-where="metric=eu_high">—</b>). Counted by the parent group's home country, not where the part was made or how it reached Russia, usually through third countries.</span>
     </div>
     <div class="at-tile">
-      <span class="at-tile-l">Shahed-type drones launched, Jan 2025 to Sep 2026</span>
+      <span class="at-tile-l">Shahed-type drones launched, <span data-draw="lbl" data-source="win" data-field="label" data-where="metric=short">Jan 2025 to latest month</span></span>
       <span class="at-tile-n" data-draw="num" data-source="totals" data-field="value" data-where="metric=launches">—</span>
       <span class="at-tile-s">Of which an estimated <b data-draw="num" data-source="totals" data-field="value" data-where="metric=strike_launched">—</b> strike drones; the rest decoys and other types</span>
     </div>
@@ -199,7 +199,7 @@
       <span class="at-tile-s">Of <b data-draw="num" data-source="storage" data-field="prewar" data-where="category=Tanks&amp;date=2026-06">—</b> before the invasion; <b data-draw="num" data-source="storage" data-field="restorable" data-where="category=Tanks&amp;date=2026-06">—</b> judged restorable (satellite count by Jompy)</span>
     </div>
     <div class="at-tile">
-      <span class="at-tile-l">Documented equipment losses, Jan 2025 to Sep 2026</span>
+      <span class="at-tile-l">Documented equipment losses, <span data-draw="lbl" data-source="win" data-field="label" data-where="metric=short">Jan 2025 to latest month</span></span>
       <span class="at-tile-n" data-draw="num" data-source="totals" data-field="value" data-where="metric=losses_window">—</span>
       <span class="at-tile-s">Destroyed, captured or abandoned, each confirmed by photo or video (WarSpotting). A floor, not a total.</span>
     </div>
@@ -250,10 +250,11 @@
 
   <section class="at-sec" id="window">
     <h2>Firing vs losing, over the same months</h2>
-    <p>Both sides of the comparison cover January 2025 to September 2026. Losses come by year, so the matched platforms include October 2026, which slightly favours losses.</p>
+    <p>Both sides of the comparison cover <span data-draw="lbl" data-source="win" data-field="label" data-where="metric=long">January 2025 to the latest month</span>. Matched losses are counted by loss date over exactly the same months.</p>
+    <p><b>How to read this comparison.</b> Both sides count GUR component records, not chips or money. The drone side covers every Shahed-type drone launched; the loss side covers only the 14 platform types GUR has taken apart, <b data-draw="pct" data-source="totals" data-field="value" data-where="metric=lost_share">—</b> of the <b data-draw="num" data-source="totals" data-field="value" data-where="metric=losses_window">—</b> losses WarSpotting documented in the same months, and counts each as if rebuilt new, although most lost armour is replaced from storage. The comparison shows where Russia's recurring demand for foreign parts comes from: weapons it fires and must rebuild every time, rather than equipment it loses.</p>
     <div class="at-grid">
       <div class="at-card" id="scale">
-        <h3>Foreign component records, Jan 2025 to Sep 2026</h3>
+        <h3>Foreign component records, <span data-draw="lbl" data-source="win" data-field="label" data-where="metric=short">Jan 2025 to latest month</span></h3>
         <p class="at-note">Matched losses are shown as if every lost unit were replaced with a new build, which is an upper bound: most lost armour was replaced from storage. Whiskers on the drone bars run from all-decoy to all-Shahed.</p>
         <div class="at-chart" data-draw="scale" data-source="totals"></div>
       </div>
@@ -314,11 +315,11 @@
     <h2>How this is built</h2>
     <ul>
       <li><b>What a component record is.</b> GUR's War &amp; Sanctions database lists each component it found in a teardown as one record: name and marking, manufacturer and the manufacturer's home country. It records no quantities, and one part type can appear more than once. So records per unit measure foreign dependence, not a count of chips. "Foreign" here excludes records GUR attributes to Russia or Belarus and those it could not identify.</li>
-      <li><b>Strike share.</b> ISIS's monthly share of strike drones in Shahed-type launches from September 2025 to June 2026; its 2025 full-year share (59%) for January to August 2025; and its January to June 2026 average (64%) for July to September 2026, which is this dashboard's assumption. The non-strike share includes Garpiya-A1 strike drones, so the central estimate counts too many decoys and is, if anything, low.</li>
-      <li><b>Launches.</b> Monthly Shahed-type totals published by ISIS from Ukrainian Air Force reports. July and September 2026 are ISIS reporting baselines, which it says may be incomplete.</li>
-      <li><b>Losses.</b> All Russian losses in WarSpotting's API as retrieved on 1 November 2026, excluding damaged vehicles. Armoured vehicles are infantry fighting and mobility vehicles; artillery is towed, self-propelled and rocket; air defence includes radars and jammers.</li>
+      <li><b>Strike share.</b> ISIS's monthly share of strike drones in Shahed-type launches from September 2025 onwards, and its 2025 full-year share (59%) for January to August 2025. If ISIS has not yet published the latest month, its last monthly share is carried forward, which is this dashboard's assumption. The non-strike share includes Garpiya-A1 strike drones, so on that count the central estimate is low; but jet-powered Geran-3s are counted with the Shahed-136's records, which pushes recent months up.</li>
+      <li><b>Launches.</b> Monthly Shahed-type totals published by ISIS from Ukrainian Air Force reports. From July 2026, ISIS publishes reporting baselines, which it says may be incomplete. For October 2026 the General Staff separately reported 6,473 genuine Shahed/Geran launches, a different population from ISIS's 6,148.</li>
+      <li><b>Losses.</b> All Russian losses in WarSpotting's API as retrieved on 25 November 2026, excluding damaged vehicles. Armoured vehicles are infantry fighting and mobility vehicles; artillery is towed, self-propelled and rocket; air defence includes radars and jammers.</li>
       <li><b>Storage.</b> Satellite counts of storage bases by the analyst Jompy, as reported by Euromaidan Press (tanks, October 2025 and June 2026) and UkraNews (IFVs, APCs and artillery, October 2025). One analyst's counts; vehicles under roofs are not visible.</li>
-      <li><b>Matching.</b> WarSpotting models are matched to GUR weapon families by name. T-72 means T-72B3 variants only; the R-330 jammer means the R-330BMV.</li>
+      <li><b>Matching.</b> WarSpotting models are matched to GUR weapon families by name. T-72 means T-72B3 variants only; the R-330 jammer means the R-330BMV; Fenix means the Feniks drone, not the armoured truck of the same name.</li>
       <li><b>Not a trade measure.</b> These are components embedded in weapons Russia used or lost, not imports. They show what Russia must keep sourcing to sustain this tempo.</li>
     </ul>
   </section>
@@ -363,11 +364,13 @@
   dash.calc('totals', {
     inputs: ['monthly', 'losses', 'linked_calc'],
     title: 'Headline totals',
-    description: 'Jan 2025 to Sep 2026: launches, strike drones, foreign and EU-owned records carried, documented losses, and records in matched losses.',
+    description: 'Jan 2025 to the latest month: launches, strike drones, foreign and EU-owned records carried, documented losses, and records in matched losses.',
     fn: (monthly, losses, linked_calc) => {
       const sum = (k) => monthly.reduce((s, r) => s + r[k], 0);
       const lostRecords = linked_calc.reduce((s, r) => s + r.records_lost, 0);
       const lostEu = linked_calc.reduce((s, r) => s + r.eu_lost, 0);
+      const lostUnits = linked_calc.reduce((s, r) => s + r.lost_window, 0);
+      const lossesWindow = losses.filter((r) => r.month >= '2025-01' && r.month <= monthly[monthly.length - 1].month).reduce((s, r) => s + Number(r.losses), 0);
       return [
         {metric: 'launches', value: sum('launched')},
         {metric: 'strike_launched', value: sum('strike')},
@@ -377,8 +380,11 @@
         {metric: 'eu_low', value: sum('eu_low')},
         {metric: 'eu_mid', value: Math.round(sum('eu_mid'))},
         {metric: 'eu_high', value: sum('eu_high')},
-        {metric: 'losses_window', value: losses.filter((r) => r.month >= '2025-01' && r.month <= '2026-09').reduce((s, r) => s + Number(r.losses), 0)},
+        {metric: 'losses_window', value: lossesWindow},
         {metric: 'lost_records', value: lostRecords},
+        {metric: 'lost_records_round', value: Math.round(lostRecords / 1000) * 1000},
+        {metric: 'lost_units', value: lostUnits},
+        {metric: 'lost_share', value: lostUnits / lossesWindow},
         {metric: 'lost_eu', value: lostEu},
         {metric: 'ratio', value: Math.round(sum('mid') / lostRecords)},
       ];
@@ -419,6 +425,22 @@
       const drones = oct_calc.filter((r) => r.source === 'Shahed-type drones').reduce((s, r) => s + r.records, 0);
       const rest = oct_calc.filter((r) => r.source !== 'Shahed-type drones').reduce((s, r) => s + r.records, 0);
       return [{metric: 'added_share', value: rest / drones}];
+    },
+  });
+
+  dash.calc('win', {
+    inputs: ['monthly'],
+    title: 'Comparison window',
+    description: 'January 2025 to the latest month with launch data, as short and long labels.',
+    fn: (monthly) => {
+      const names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const s = [...monthly].sort((a, b) => (a.month < b.month ? -1 : 1));
+      const m = (r, n) => names[Number(r.month.slice(5, 7)) - 1].slice(0, n) + ' ' + r.month.slice(0, 4);
+      const F = s[0], L = s[s.length - 1];
+      return [
+        {metric: 'short', label: m(F, 3) + ' to ' + m(L, 3)},
+        {metric: 'long', label: m(F, 99) + ' to ' + m(L, 99)},
+      ];
     },
   });
 
